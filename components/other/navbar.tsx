@@ -1,32 +1,20 @@
-'use client';
-
-import * as React from 'react';
-import { useEffect } from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { MoveRight } from 'lucide-react';
+import { MoveRight, Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = React.useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <header
-      className={cn(
-        'sticky top-0 z-50 w-full border-b transition-all border-border/40',
-        isScrolled ? 'bg-background/80 backdrop-blur-lg' : 'bg-background',
-      )}
-    >
-      <div className="max-w-7xl flex mx-auto h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b transition-all border-border/40 bg-background/60 backdrop-blur-lg">
+      <div className="px-4 md:px-8 max-w-[1400px] flex mx-auto h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <div>
             <Image src="/logo.svg" alt="logo" width={30} height={30} />
@@ -34,24 +22,20 @@ export function Navbar() {
           <span className="text-xl font-semibold">ghlcn</span>
         </Link>
 
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" className="hidden md:flex" asChild>
+        <div className="hidden md:flex items-center gap-0 lg:gap-3">
+          <Button variant="ghost" className="flex" asChild>
             <Link href="#">Components</Link>
           </Button>
-          <Button variant="ghost" className="hidden md:flex" asChild>
+          <Button variant="ghost" className="flex" asChild>
             <Link href="#">Tools</Link>
           </Button>
-          <Button variant="ghost" className="hidden md:flex" asChild>
+          <Button variant="ghost" className="flex" asChild>
             <Link href="#">Pricing</Link>
           </Button>
-          <Button variant="ghost" className="hidden md:flex" asChild>
+          <Button variant="ghost" className="flex" asChild>
             <Link href="#">How it works?</Link>
           </Button>
-          <Button
-            variant="ghost"
-            className="ml-4 hidden md:flex border"
-            asChild
-          >
+          <Button variant="ghost" className="ml-4 flex border" asChild>
             <Link href="/login">Login</Link>
           </Button>
           <Button>
@@ -60,6 +44,76 @@ export function Navbar() {
               <MoveRight className="h-full mt-1" />
             </div>
           </Button>
+        </div>
+        {/* mobile navbar */}
+        <div className="block md:hidden">
+          <Sheet>
+            <SheetTrigger>
+              <Menu />
+            </SheetTrigger>
+            <SheetContent side="bottom">
+              <SheetHeader>
+                <SheetTitle>
+                  <Link href="/" className="flex items-center space-x-2">
+                    <div>
+                      <Image
+                        src="/logo.svg"
+                        alt="logo"
+                        width={30}
+                        height={30}
+                      />
+                    </div>
+                    <span className="text-xl font-semibold">ghlcn</span>
+                  </Link>
+                </SheetTitle>
+                <SheetDescription>
+                  <div className="flex flex-col w-full gap-2 mt-8">
+                    <Button
+                      variant="ghost"
+                      className="flex p-0 mr-auto"
+                      asChild
+                    >
+                      <Link href="#">Components</Link>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="flex p-0 mr-auto"
+                      asChild
+                    >
+                      <Link href="#">Tools</Link>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="flex p-0 mr-auto"
+                      asChild
+                    >
+                      <Link href="#">Pricing</Link>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="flex p-0 mr-auto"
+                      asChild
+                    >
+                      <Link href="#">How it works?</Link>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="flex border mt-6"
+                      asChild
+                    >
+                      <Link href="/login">Login</Link>
+                    </Button>
+                    <Button>
+                      <div className="flex gap-2 items-center">
+                        <Link href="/signup">Get all-access</Link>
+                        <MoveRight className="h-full mt-1" />
+                      </div>
+                    </Button>
+                  </div>
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
