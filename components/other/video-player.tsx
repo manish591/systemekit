@@ -23,21 +23,21 @@ export function VideoPlayer({
   return (
     <>
       <div
-        className="relative w-full cursor-pointer hover:bg-red"
+        className="relative w-full cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
-        <div className="border relative aspect-video w-full overflow-hidden rounded-lg">
+        <div className="group border relative aspect-video w-full overflow-hidden rounded-lg">
           <Image
             src={thumbnailUrl}
             alt={title}
             width={400}
             height={500}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover duration-200 transtion-all group-hover:brightness-[0.7]"
           />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="rounded-full bg-red-500 p-4 shadow-lg transition-transform duration-300 group-hover:scale-110">
               <svg
-                className="w-8 h-8 text-white"
+                className="w-10 h-10 md:w-12 md:h-12 text-white"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
