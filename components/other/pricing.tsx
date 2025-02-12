@@ -138,9 +138,9 @@ export function Pricing() {
                 </div>
               </div>
               <div className="pt-4 border-t border-gray-100">
-                <button className="w-full py-3 border-2 border-gray-200 rounded-xl text-gray-800 font-medium hover:bg-gray-50 transition-colors">
+                <Button variant="outline" className="w-full h-12 font-medium">
                   Subscribe
-                </button>
+                </Button>
                 <p className="text-gray-500 text-sm mt-6 text-center">
                   For large-scale operations and high-volume users
                 </p>
