@@ -30,10 +30,10 @@ export function Hero() {
             <ArrowRight height={16} width={16} />
           </div>
           <div className="flex max-w-2xl flex-col items-center text-center">
-            <h1 className="mb-6 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+            <h1 className="mb-6 text-4xl font-semibold tracking-tight md:w-[80%] md:text-5xl">
               Sick of Boring GHL Designs? We&apos;ve Got You
             </h1>
-            <p className="mb-8 max-w-2xl text-lg md:text-xl tracking-wide text-muted-foreground">
+            <p className="mb-8 max-w-xl text-lg tracking-wide text-muted-foreground">
               Copy-paste ready components to enhance your{' '}
               <strong>GoHighLevel</strong> and <strong>Systeme</strong>{' '}
               websites. Boost conversion rates with stunning, responsive

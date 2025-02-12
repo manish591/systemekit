@@ -49,7 +49,7 @@ export function VideoPlayer({
       </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTitle className="sr-only">{title}</DialogTitle>
-        <DialogContent className="sm:max-w-[800px] p-0">
+        <DialogContent className="p-0 border-2 w-[90%] md:max-w-[500px] lg:max-w-[800px] bg-transparent rounded-lg">
           <div className="relative">
             <Button
               variant="ghost"
@@ -65,9 +65,9 @@ export function VideoPlayer({
                 width="100%"
                 height="100%"
                 src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="absolute inset-0"
+                className="absolute inset-0 rounded-lg"
               ></iframe>
             </div>
           </div>
