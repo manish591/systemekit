@@ -1,4 +1,4 @@
-import { VideoPlayer } from '@/components/other/video-player';
+import { VideoPlayer } from '@/components/video-player';
 import { Button } from '@/components/ui/button';
 import { GridPattern } from '@/components/ui/grid-pattern';
 import { cn } from '@/lib/utils';

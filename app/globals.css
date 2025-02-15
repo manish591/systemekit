@@ -28,7 +28,7 @@
     --chart-2: 305 65% 55%; /* Purple-Pink */
     --chart-3: 355 70% 60%; /* Red-Pink */
     --chart-4: 315 80% 65%; /* Magenta */
-    --chart-5: 345 75% 65%; /* Rose Pink */
+    --chart-5: 345 75% 65%; /* Rose Pink */ --sidebar-background: 0 0% 98%; --sidebar-foreground: 240 5.3% 26.1%; --sidebar-primary: 240 5.9% 10%; --sidebar-primary-foreground: 0 0% 98%; --sidebar-accent: 240 4.8% 95.9%; --sidebar-accent-foreground: 240 5.9% 10%; --sidebar-border: 220 13% 91%; --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 335 14.3% 4.1%;
@@ -54,7 +54,7 @@
     --chart-2: 315 65% 45%; /* Dark Magenta */
     --chart-3: 355 60% 45%; /* Dark Rose */
     --chart-4: 295 70% 50%; /* Dark Purple-Pink */
-    --chart-5: 325 75% 45%; /* Dark Medium Pink */
+    --chart-5: 325 75% 45%; /* Dark Medium Pink */ --sidebar-background: 240 5.9% 10%; --sidebar-foreground: 240 4.8% 95.9%; --sidebar-primary: 224.3 76.3% 48%; --sidebar-primary-foreground: 0 0% 100%; --sidebar-accent: 240 3.7% 15.9%; --sidebar-accent-foreground: 240 4.8% 95.9%; --sidebar-border: 240 3.7% 15.9%; --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
