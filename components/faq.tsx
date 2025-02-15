@@ -40,7 +40,7 @@ function FAQItem({ question, isOpen, onClick }: Readonly<FAQItemProps>) {
 export function Faq() {
   const [openItem, setOpenItem] = useState<number | null>(null);
   return (
-    <section className="py-24 lg:py-32">
+    <section id="faqs" className="py-24 lg:py-32">
       <div className="max-w-5xl mx-auto px-4 lg:px-0">
         <div className="text-center mb-12">
           <p className="text-md font-mono text-primary mb-8 tracking-wide uppercase">

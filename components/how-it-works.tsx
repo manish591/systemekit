@@ -2,7 +2,7 @@ import { Search, ClipboardCopy, Settings } from 'lucide-react';
 
 export function HowItWorks() {
   return (
-    <section className="py-24 md:py-32">
+    <section id="how-it-works" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-8 lg:px-8">
         <div className="text-center mb-20">
           <p className="text-md font-mono text-primary mb-8 tracking-wide uppercase">

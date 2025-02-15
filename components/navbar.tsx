@@ -24,23 +24,23 @@ export function Navbar() {
 
         <div className="hidden md:flex items-center gap-0 lg:gap-3">
           <Button variant="ghost" className="flex" asChild>
-            <Link href="#">Components</Link>
+            <Link href="/docs/components/button">Components</Link>
           </Button>
           <Button variant="ghost" className="flex" asChild>
-            <Link href="#">Tools</Link>
+            <Link href="/docs/tools/shadow-generator">Tools</Link>
           </Button>
           <Button variant="ghost" className="flex" asChild>
-            <Link href="#">Pricing</Link>
+            <Link href="#pricing">Pricing</Link>
           </Button>
           <Button variant="ghost" className="flex" asChild>
-            <Link href="#">How it works?</Link>
+            <Link href="#how-it-works">How it works?</Link>
           </Button>
           <Button variant="ghost" className="ml-4 flex border" asChild>
             <Link href="/login">Login</Link>
           </Button>
           <Button>
             <div className="flex gap-2 items-center">
-              <Link href="/signup">Get all-access</Link>
+              <Link href="/login">Get all-access</Link>
               <MoveRight className="h-full mt-1" />
             </div>
           </Button>
@@ -66,35 +66,37 @@ export function Navbar() {
                     <span className="text-xl font-semibold">ghlcn</span>
                   </Link>
                 </SheetTitle>
-                <SheetDescription>
-                  <div className="flex flex-col w-full gap-2 mt-8">
+                <SheetDescription asChild>
+                  <div className="pt-4 flex flex-col w-full gap-2 mt-8">
                     <Button
                       variant="ghost"
                       className="flex p-0 mr-auto"
                       asChild
                     >
-                      <Link href="#">Components</Link>
+                      <Link href="/docs/components/button">Components</Link>
                     </Button>
                     <Button
                       variant="ghost"
                       className="flex p-0 mr-auto"
                       asChild
                     >
-                      <Link href="#">Tools</Link>
+                      <Link href="/docs/components/shadow-generator">
+                        Tools
+                      </Link>
                     </Button>
                     <Button
                       variant="ghost"
                       className="flex p-0 mr-auto"
                       asChild
                     >
-                      <Link href="#">Pricing</Link>
+                      <Link href="#pricing">Pricing</Link>
                     </Button>
                     <Button
                       variant="ghost"
                       className="flex p-0 mr-auto"
                       asChild
                     >
-                      <Link href="#">How it works?</Link>
+                      <Link href="#how-it-works">How it works?</Link>
                     </Button>
                     <Button
                       variant="ghost"
@@ -103,11 +105,13 @@ export function Navbar() {
                     >
                       <Link href="/login">Login</Link>
                     </Button>
-                    <Button>
-                      <div className="flex gap-2 items-center">
-                        <Link href="/signup">Get all-access</Link>
-                        <MoveRight className="h-full mt-1" />
-                      </div>
+                    <Button asChild>
+                      <Link href="/login">
+                        <div className="flex gap-2 items-center">
+                          <p>Get all-access</p>
+                          <MoveRight className="h-full mt-1" />
+                        </div>
+                      </Link>
                     </Button>
                   </div>
                 </SheetDescription>

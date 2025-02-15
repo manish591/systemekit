@@ -3,7 +3,10 @@ import { Card, CardContent } from '@/components/ui/card';
 
 export function Problem() {
   return (
-    <section className="py-32 lg:py-36 px-8 md:px-8 max-w-7xl mx-auto">
+    <section
+      id="problems"
+      className="py-32 lg:py-36 px-8 md:px-8 max-w-7xl mx-auto"
+    >
       <div className="text-center mb-20">
         <p className="text-md font-mono text-primary mb-8 tracking-wide uppercase">
           PROBLEM

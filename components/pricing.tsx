@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 
 export function Pricing() {
   return (
-    <section className="py-24 lg:py-32">
+    <section id="pricing" className="py-24 lg:py-32">
       <div className="max-w-5xl mx-auto px-4 lg:px-0">
         <div className="text-center mb-20">
           <p className="text-md font-mono text-primary mb-8 tracking-wide uppercase">

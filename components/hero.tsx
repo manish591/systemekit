@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export function Hero() {
   return (
-    <section>
+    <section id="hero">
       <div className="relative flex size-full items-center justify-center overflow-hidden rounded-lg bg-background">
         <GridPattern
           width={20}
@@ -40,7 +40,7 @@ export function Hero() {
               designs.
             </p>
             <Button asChild size="lg" className="mb-4 px-8">
-              <Link href="/signup">
+              <Link href="/docs/components/button">
                 <span className="flex items-center gap-2">
                   Browse Components
                   <MoveRight className="h-full mt-1" />

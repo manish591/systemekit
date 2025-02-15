@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export function Solution() {
   return (
-    <section className="bg-neutral-100 py-24 md:py-32">
+    <section id="solutions" className="bg-neutral-100 py-24 md:py-32">
       <div className="max-w-5xl mx-auto px-4">
         <div className="text-center mb-20">
           <p className="text-md font-mono text-primary mb-8 tracking-wide uppercase">
