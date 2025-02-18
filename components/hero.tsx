@@ -19,16 +19,18 @@ export function Hero() {
           )}
         />
         <div className="flex flex-col items-center justify-center px-4 pt-16 md:pt-28">
-          <div className="text-primary text-sm font-semibold mb-10 inline-flex items-center gap-2 rounded-full bg-primary/20 px-2 py-1">
-            <div className="flex items-center gap-2 bg-background/60 px-2 py-1 rounded-full">
-              <span className="text-amber-400">📣</span>
-              <p className="text-xs md:text-sm">Announcement</p>
+          <Link href="/docs/tools/gradient-generator">
+            <div className="text-primary text-sm font-semibold mb-10 inline-flex items-center gap-2 rounded-full bg-primary/20 px-2 py-1">
+              <div className="flex items-center gap-2 bg-background/60 px-2 py-1 rounded-full">
+                <span className="text-amber-400">📣</span>
+                <p className="text-xs md:text-sm">Announcement</p>
+              </div>
+              <span className="text-primary text-xs md:text-sm">
+                Introducing tools
+              </span>
+              <ArrowRight height={16} width={16} />
             </div>
-            <span className="text-primary text-xs md:text-sm">
-              Introducing typing effect
-            </span>
-            <ArrowRight height={16} width={16} />
-          </div>
+          </Link>
           <div className="flex max-w-2xl flex-col items-center text-center">
             <h1 className="mb-6 text-4xl font-semibold tracking-tight md:w-[80%] md:text-5xl">
               Sick of Boring GHL Designs? We&apos;ve Got You
@@ -40,7 +42,7 @@ export function Hero() {
               designs.
             </p>
             <Button asChild size="lg" className="mb-4 px-8">
-              <Link href="/docs/components/button">
+              <Link href="/docs/components/gradient-button">
                 <span className="flex items-center gap-2">
                   Browse Components
                   <MoveRight className="h-full mt-1" />

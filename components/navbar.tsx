@@ -24,10 +24,10 @@ export function Navbar() {
 
         <div className="hidden md:flex items-center gap-0 lg:gap-3">
           <Button variant="ghost" className="flex" asChild>
-            <Link href="/docs/components/button">Components</Link>
+            <Link href="/docs/components/gradient-button">Components</Link>
           </Button>
           <Button variant="ghost" className="flex" asChild>
-            <Link href="/docs/tools/shadow-generator">Tools</Link>
+            <Link href="/docs/tools/gradient-generator">Tools</Link>
           </Button>
           <Button variant="ghost" className="flex" asChild>
             <Link href="#pricing">Pricing</Link>
@@ -73,16 +73,16 @@ export function Navbar() {
                       className="flex p-0 mr-auto"
                       asChild
                     >
-                      <Link href="/docs/components/button">Components</Link>
+                      <Link href="/docs/components/gradient-button">
+                        Components
+                      </Link>
                     </Button>
                     <Button
                       variant="ghost"
                       className="flex p-0 mr-auto"
                       asChild
                     >
-                      <Link href="/docs/components/shadow-generator">
-                        Tools
-                      </Link>
+                      <Link href="/docs/tools/gradient-generator">Tools</Link>
                     </Button>
                     <Button
                       variant="ghost"

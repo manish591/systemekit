@@ -51,7 +51,7 @@ export default function DocsLayout({
               />
             </div>
           </header>
-          <div className="p-4">{children}</div>
+          <div className="py-6 px-12">{children}</div>
         </SidebarInset>
       </SidebarProvider>
     </main>

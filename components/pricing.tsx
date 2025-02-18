@@ -21,7 +21,7 @@ export function Pricing() {
               </h2>
               <div className="mb-6 text-center">
                 <div className="justify-center flex items-center gap-x-2">
-                  <span className="text-5xl font-bold">$19</span>
+                  <span className="text-5xl font-bold">$0</span>
                   <span className="text-gray-500 font-semibold">/ month</span>
                 </div>
                 <div className="text-gray-500 mt-1 text-sm">billed monthly</div>
@@ -50,7 +50,7 @@ export function Pricing() {
               </div>
               <div className="pt-4 border-t border-gray-100">
                 <Button variant="outline" className="h-12 w-full font-medium">
-                  Subscribe
+                  Browse Components
                 </Button>
                 <p className="text-gray-500 text-sm mt-6 text-center">
                   Perfect for individuals and small projects
@@ -68,7 +68,7 @@ export function Pricing() {
               </h2>
               <div className="mb-6 text-center">
                 <div className="justify-center flex items-center gap-x-2">
-                  <span className="text-5xl font-bold">$49</span>
+                  <span className="text-5xl font-bold">$129</span>
                   <span className="text-gray-500 font-semibold">/ month</span>
                 </div>
                 <div className="text-gray-500 mt-1 text-sm">billed monthly</div>
