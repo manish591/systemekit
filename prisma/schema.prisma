@@ -70,6 +70,7 @@ model VerificationToken {
 model Component {
   id             String   @id @default(cuid())
   name           String
+  slug           String   @unique
   description    String
   plateform      Platform
   cssCode        String
