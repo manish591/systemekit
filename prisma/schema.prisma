@@ -67,6 +67,22 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
+model Component {
+  id             String   @id @default(cuid())
+  name           String
+  description    String
+  plateform      Platform
+  cssCode        String
+  htmlCode       String?
+  jsCode         String?
+  preview_iframe String
+  usage_guide    String
+  accessLevel    Tier
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum Role {
   USER
   ADMIN
@@ -75,4 +91,9 @@ enum Role {
 enum Tier {
   FREE
   PRO
+}
+
+enum Platform {
+  system_io
+  go_high_level
 }
