@@ -25,7 +25,7 @@ const data = {
       items: [
         {
           title: 'Introduction',
-          url: '/docs',
+          url: '/docs/getting-started/introduction',
         },
       ],
     },
@@ -46,6 +46,16 @@ const data = {
         {
           title: 'Gradient Button',
           url: '/docs/components/gradient-button',
+        },
+      ],
+    },
+    {
+      title: 'Text',
+      url: '#',
+      items: [
+        {
+          title: 'Gradient Text',
+          url: '/docs/components/gradient-text',
         },
       ],
     },

@@ -1,18 +1,44 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getComponentData } from './actions';
+import { notFound } from 'next/navigation';
+import { Platform } from '@prisma/client';
 
-export default function GradientButton() {
+export default async function ComponentDetails({
+  params,
+}: Readonly<{
+  params: Promise<{ slug: string }>;
+}>) {
+  const componentData = await getComponentData(
+    (
+      await params
+    ).slug,
+    Platform.systeme_io,
+  );
+
+  if (componentData.status == 404) {
+    notFound();
+    return;
+  }
+
+  if (componentData.status == 500) {
+    return (
+      <main className="max-w-5xl text-center mt-24">
+        <h2 className="text-2xl">Data not found</h2>
+        <p className="text-muted-foreground">Try again later</p>
+      </main>
+    );
+  }
+
+  console.log('component data', componentData);
+
   return (
     <main className="max-w-5xl">
       <div>
-        <h1 className="text-3xl font-semibold">Gradient Button</h1>
+        <h1 className="text-3xl font-semibold capitalize">
+          {componentData.data?.name}
+        </h1>
         <p className="mt-4 text-muted-foreground">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum
-          earum laboriosam, ipsa impedit vel non animi, expedita illo maxime
-          quasi praesentium quisquam enim illum. Impedit expedita quibusdam
-          exercitationem dolorum veniam? Ab rem quo voluptatum quibusdam, dolor
-          repudiandae unde amet vero optio recusandae voluptas hic ea sint illo
-          eos! Sed aspernatur ex velit tempore. Hic consectetur qui nobis, eius
-          officiis exercitationem?
+          {componentData.data?.description}
         </p>
       </div>
       <div className="mt-10">
@@ -41,6 +67,18 @@ export default function GradientButton() {
       </div>
       <div className="mt-10">
         <h2 className="text-2xl font-semibold">Usage Guide</h2>
+        <div className="mt-8">
+          <iframe
+            width="100%"
+            height="500px"
+            src="https://www.youtube.com/embed/CpBXikakzks?si=MXUJy96-znPoT0-v"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className="rounded-[16px]"
+          ></iframe>
+        </div>
       </div>
     </main>
   );
