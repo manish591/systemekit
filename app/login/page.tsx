@@ -14,7 +14,7 @@ import { redirect } from 'next/navigation';
 export default async function Login() {
   const session = await auth();
   if (session) {
-    return redirect('/docs');
+    return redirect('/docs/getting-started/introduction');
   }
 
   return (
@@ -43,7 +43,9 @@ export default async function Login() {
               <form
                 action={async () => {
                   'use server';
-                  await signIn('google', { redirectTo: '/docs' });
+                  await signIn('google', {
+                    redirectTo: '/docs/getting-started/introduction',
+                  });
                 }}
               >
                 <div className="grid gap-6">

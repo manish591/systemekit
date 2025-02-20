@@ -36,7 +36,7 @@ export function Hero() {
               Sick of Boring GHL Designs? We&apos;ve Got You
             </h1>
             <p className="mb-8 max-w-xl text-lg tracking-wide text-muted-foreground">
-              Copy-paste ready components to enhance your{' '}
+              Copy-paste ready made components to enhance your{' '}
               <strong>GoHighLevel</strong> and <strong>Systeme</strong>{' '}
               websites. Boost conversion rates with stunning, responsive
               designs.

@@ -38,7 +38,7 @@ export function NavUser({
   const { isMobile } = useSidebar();
 
   return (
-    <SidebarMenu className="bg-muted/60">
+    <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

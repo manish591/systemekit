@@ -1,10 +1,9 @@
 'use client';
 
-import { SearchForm } from '@/components/search-form';
-import { VersionSwitcher } from '@/components/version-switcher';
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -15,6 +14,12 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
+import { NavUser } from './nav-user';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { getUserData } from '@/app/actions';
+import { Tier } from '@prisma/client';
 
 const data = {
   versions: ['Systeme.io', 'GHL'],
@@ -26,6 +31,10 @@ const data = {
         {
           title: 'Introduction',
           url: '/docs/getting-started/introduction',
+        },
+        {
+          title: 'How to use?',
+          url: '#',
         },
       ],
     },
@@ -62,16 +71,51 @@ const data = {
   ],
 };
 
+type UserData = {
+  name: string;
+  email: string;
+  tier: keyof typeof Tier;
+  image: string;
+};
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    (async function () {
+      const userData = await getUserData();
+      setIsLoggedIn(userData.isLoggedIn);
+      setUserData(userData.data);
+    })();
+  }, []);
+
   return (
-    <Sidebar {...props}>
+    <Sidebar
+      className="top-[--header-height] !h-[calc(100svh-var(--header-height))]"
+      {...props}
+    >
       <SidebarHeader>
-        <VersionSwitcher
-          versions={data.versions}
-          defaultVersion={data.versions[0]}
-        />
-        <SearchForm />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <Link href="#" className="mt-2">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+                  <Image src="/logo.svg" alt="logo" width={30} height={30} />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">ghlcn</span>
+                  {isLoggedIn && (
+                    <span className="truncate text-xs capitalize">
+                      {userData?.tier}
+                    </span>
+                  )}
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         {data.navMain.map((item) => (
@@ -92,6 +136,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ))}
       </SidebarContent>
       <SidebarRail />
+      {isLoggedIn && (
+        <SidebarFooter>
+          <NavUser
+            name={userData?.name ?? ''}
+            email={userData?.email ?? ''}
+            avatar={userData?.image ?? ''}
+          />
+        </SidebarFooter>
+      )}
     </Sidebar>
   );
 }

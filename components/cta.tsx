@@ -15,7 +15,7 @@ export function Cta() {
           </h1>
           <Button>
             <div className="flex gap-2 items-center">
-              <Link href="/signup">Get all-access</Link>
+              <Link href="#pricing">Get all-access</Link>
               <MoveRight className="h-full mt-1" />
             </div>
           </Button>

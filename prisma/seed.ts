@@ -29,7 +29,7 @@ async function main() {
     create: {
       cssCode: `#gradient-button {\nbackground: #808080;\nbackground: -webkit-linear-gradient(to right, #3fada8, #808080);\nbackground: linear-gradient(to right, #3fada8, #808080);\n}`,
       plateform: "go_high_level",
-      usage_guide: "https://youtu.be/05wedQWDPDM?si=467Pu96tF2oIPh8v",
+      usage_guide: "https://youtu.be/05wedQWDPDM",
       htmlCode: null,
       jsCode: null,
       componentId: gradientButton.id
@@ -47,7 +47,7 @@ async function main() {
     create: {
       cssCode: `#your_button_id {\nbackground: #808080;\nbackground: -webkit-linear-gradient(to right, #3fada8, #808080);\nbackground: linear-gradient(to right, #3fada8, #808080);\n}`,
       plateform: "systeme_io",
-      usage_guide: "https://youtu.be/05wedQWDPDM?si=467Pu96tF2oIPh8v",
+      usage_guide: "https://youtu.be/05wedQWDPDM",
       htmlCode: null,
       jsCode: null,
       componentId: gradientButton.id
@@ -82,7 +82,7 @@ async function main() {
       cssCode: `#your_text_id {\nbackground: -webkit-linear-gradient(#eee, #333);\n
       -webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n}`,
       plateform: "go_high_level",
-      usage_guide: "https://youtu.be/4r9uhBk6yBo?si=mCNknM43Vv_PkH7p",
+      usage_guide: "https://youtu.be/4r9uhBk6yBo",
       htmlCode: null,
       jsCode: null,
       componentId: gradientText.id
@@ -101,7 +101,7 @@ async function main() {
       cssCode: `#your_text_id {\nbackground: -webkit-linear-gradient(#eee, #333);\n
       -webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n}`,
       plateform: "systeme_io",
-      usage_guide: "https://youtu.be/4r9uhBk6yBo?si=mCNknM43Vv_PkH7p",
+      usage_guide: "https://youtu.be/4r9uhBk6yBo",
       htmlCode: null,
       jsCode: null,
       componentId: gradientText.id

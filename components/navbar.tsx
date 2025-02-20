@@ -30,9 +30,6 @@ export function Navbar() {
             <Link href="/docs/tools/gradient-generator">Tools</Link>
           </Button>
           <Button variant="ghost" className="flex" asChild>
-            <Link href="#pricing">Pricing</Link>
-          </Button>
-          <Button variant="ghost" className="flex" asChild>
             <Link href="#how-it-works">How it works?</Link>
           </Button>
           <Button variant="ghost" className="ml-4 flex border" asChild>
@@ -40,7 +37,7 @@ export function Navbar() {
           </Button>
           <Button>
             <div className="flex gap-2 items-center">
-              <Link href="/login">Get all-access</Link>
+              <Link href="#pricing">Get all-access</Link>
               <MoveRight className="h-full mt-1" />
             </div>
           </Button>
@@ -89,13 +86,6 @@ export function Navbar() {
                       className="flex p-0 mr-auto"
                       asChild
                     >
-                      <Link href="#pricing">Pricing</Link>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      className="flex p-0 mr-auto"
-                      asChild
-                    >
                       <Link href="#how-it-works">How it works?</Link>
                     </Button>
                     <Button
@@ -106,7 +96,7 @@ export function Navbar() {
                       <Link href="/login">Login</Link>
                     </Button>
                     <Button asChild>
-                      <Link href="/login">
+                      <Link href="#pricing">
                         <div className="flex gap-2 items-center">
                           <p>Get all-access</p>
                           <MoveRight className="h-full mt-1" />

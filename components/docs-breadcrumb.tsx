@@ -24,7 +24,7 @@ export function DocsBreadcrumb() {
                 <BreadcrumbLink href="#">{path}</BreadcrumbLink>
               </BreadcrumbItem>
               {index < pathanmeComponents.length - 1 && (
-                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbSeparator className="hidden md:block mt-[3px]" />
               )}
             </React.Fragment>
           );

@@ -2,6 +2,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getComponentData } from './actions';
 import { notFound } from 'next/navigation';
 import { Platform } from '@prisma/client';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ChevronDown, Clipboard, CodeIcon, Eye } from 'lucide-react';
 
 export default async function ComponentDetails({
   params,
@@ -29,8 +36,6 @@ export default async function ComponentDetails({
     );
   }
 
-  console.log('component data', componentData);
-
   return (
     <main className="max-w-5xl">
       <div>
@@ -42,44 +47,72 @@ export default async function ComponentDetails({
         </p>
       </div>
       <div className="mt-10">
-        <Tabs defaultValue="preview" className="max-w-5xl">
-          <TabsList className="p-0 rounded-none flex justify-start items-end border-b bg-transparent">
-            <TabsTrigger
-              value="preview"
-              className="border-b-2 border-transparent p-3 rounded-none data-[state=active]:shadow-none data-[state=active]:border-foreground"
-            >
-              Preview
-            </TabsTrigger>
-            <TabsTrigger
-              value="code"
-              className="border-b-2 border-transparent p-3 rounded-none data-[state=active]:shadow-none data-[state=active]:border-foreground"
-            >
-              Code
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="preview" className="mt-4">
-            <div className="p-10 border rounded-md"></div>
+        <Tabs defaultValue="preview" className="flex flex-col">
+          <div className="flex items-center pb-1">
+            <div className="flex items-center justify-between w-full">
+              <TabsList className="grid w-[200px] grid-cols-2">
+                <TabsTrigger
+                  value="preview"
+                  className="flex items-center gap-2"
+                >
+                  <Eye className="h-4 w-4" />
+                  Preview
+                </TabsTrigger>
+                <TabsTrigger value="code" className="flex items-center gap-2">
+                  <CodeIcon className="h-4 w-4" />
+                  Code
+                </TabsTrigger>
+              </TabsList>
+              <div className="flex gap-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex items-center gap-2 rounded-lg border px-3 py-2 text-sm hover:bg-accent">
+                    html
+                    <ChevronDown className="h-4 w-4" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>HTML</DropdownMenuItem>
+                    <DropdownMenuItem>CSS</DropdownMenuItem>
+                    <DropdownMenuItem>JavaScript</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <div className="border p-2 rounded-lg">
+                  <Clipboard className="h-full w-4" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <TabsContent value="preview" className="w-full">
+            <div className="rounded-lg border p-8">
+              Preview content goes here
+            </div>
           </TabsContent>
-          <TabsContent value="code" className="mt-4">
-            <div className="p-10 border rounded-md"></div>
+          <TabsContent value="code" className="w-full border rounded-lg">
+            <div className="rounded-lg bg-muted/50 p-8">
+              <pre className="text-sm">{`${componentData.data?.cssCode}`}</pre>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
-      <div className="mt-10">
-        <h2 className="text-2xl font-semibold">Usage Guide</h2>
-        <div className="mt-8">
-          <iframe
-            width="100%"
-            height="500px"
-            src="https://www.youtube.com/embed/CpBXikakzks?si=MXUJy96-znPoT0-v"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            className="rounded-[16px]"
-          ></iframe>
+      {componentData.data?.usageGuide && (
+        <div className="mt-10">
+          <h2 className="text-2xl font-semibold">Usage Guide</h2>
+          <div className="mt-8">
+            <iframe
+              width="100%"
+              height="500px"
+              src={`https://www.youtube.com/embed/${
+                componentData.data?.usageGuide.split('/').slice(-1)[0]
+              }`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="rounded-[16px]"
+            ></iframe>
+          </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }
