@@ -68,20 +68,32 @@ model VerificationToken {
 }
 
 model Component {
-  id             String   @id @default(cuid())
-  name           String
-  slug           String   @unique
-  description    String
-  plateform      Platform
-  cssCode        String
-  htmlCode       String?
-  jsCode         String?
-  preview_iframe String
-  usage_guide    String
-  accessLevel    Tier
+  id                String             @id @default(cuid())
+  name              String
+  slug              String             @unique
+  description       String
+  preview_iframe    String
+  accessLevel       Tier
+  component_details ComponentDetails[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ComponentDetails {
+  componentId String
+  plateform   Platform
+  cssCode     String
+  htmlCode    String?
+  jsCode      String?
+  usage_guide String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Component Component @relation(fields: [componentId], references: [id])
+
+  @@id([plateform, componentId])
 }
 
 enum Role {
@@ -95,6 +107,6 @@ enum Tier {
 }
 
 enum Platform {
-  system_io
+  systeme_io
   go_high_level
 }

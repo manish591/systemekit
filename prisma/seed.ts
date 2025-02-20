@@ -2,28 +2,109 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // add components
-  const freeComponentGHL = prisma.component.create({
-    data: {
+  // add free component for  and systeme
+  const gradientButton = await prisma.component.upsert({
+    where: { slug: "gradient-button" },
+    update: {},
+    create: {
+      slug: "gradient-button",
       name: "gradient button",
-      description: "lorem",
+      description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum
+          earum laboriosam, ipsa impedit vel non animi, expedita illo maxime
+          quasi praesentium quisquam enim illum. Impedit expedita quibusdam
+          exercitationem dolorum veniam? Ab rem quo voluptatum quibusdam.`,
       accessLevel: "FREE",
-      plateform: "go_high_level",
       preview_iframe: "",
-      cssCode: "",
-      usage_guide: "",
     }
   });
 
-  const freeComponentSysteme = prisma.component.create({
-    data: {
-      name: "gradient button",
-      description: "lorem",
-      accessLevel: "FREE",
+  await prisma.componentDetails.upsert({
+    where: {
+      plateform_componentId: {
+        componentId: gradientButton.id,
+        plateform: "go_high_level"
+      }
+    },
+    update: {},
+    create: {
+      cssCode: `#gradient-button {\nbackground: #808080;\nbackground: -webkit-linear-gradient(to right, #3fada8, #808080);\nbackground: linear-gradient(to right, #3fada8, #808080);\n}`,
       plateform: "go_high_level",
+      usage_guide: "https://youtu.be/05wedQWDPDM?si=467Pu96tF2oIPh8v",
+      htmlCode: null,
+      jsCode: null,
+      componentId: gradientButton.id
+    }
+  });
+
+  await prisma.componentDetails.upsert({
+    where: {
+      plateform_componentId: {
+        componentId: gradientButton.id,
+        plateform: "systeme_io"
+      }
+    },
+    update: {},
+    create: {
+      cssCode: `#your_button_id {\nbackground: #808080;\nbackground: -webkit-linear-gradient(to right, #3fada8, #808080);\nbackground: linear-gradient(to right, #3fada8, #808080);\n}`,
+      plateform: "systeme_io",
+      usage_guide: "https://youtu.be/05wedQWDPDM?si=467Pu96tF2oIPh8v",
+      htmlCode: null,
+      jsCode: null,
+      componentId: gradientButton.id
+    }
+  });
+
+  // add pro components for ghl and systeme
+  const gradientText = await prisma.component.upsert({
+    where: { slug: "gradient-text" },
+    update: {},
+    create: {
+      slug: "gradient-text",
+      name: "gradient text",
+      description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum
+          earum laboriosam, ipsa impedit vel non animi, expedita illo maxime
+          quasi praesentium quisquam enim illum. Impedit expedita quibusdam
+          exercitationem dolorum veniam? Ab rem quo voluptatum quibusdam.`,
+      accessLevel: "PRO",
       preview_iframe: "",
-      cssCode: "",
-      usage_guide: "",
+    }
+  });
+
+  await prisma.componentDetails.upsert({
+    where: {
+      plateform_componentId: {
+        componentId: gradientText.id,
+        plateform: "go_high_level"
+      }
+    },
+    update: {},
+    create: {
+      cssCode: `#your_text_id {\nbackground: -webkit-linear-gradient(#eee, #333);\n
+      -webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n}`,
+      plateform: "go_high_level",
+      usage_guide: "https://youtu.be/4r9uhBk6yBo?si=mCNknM43Vv_PkH7p",
+      htmlCode: null,
+      jsCode: null,
+      componentId: gradientText.id
+    }
+  });
+
+  await prisma.componentDetails.upsert({
+    where: {
+      plateform_componentId: {
+        componentId: gradientText.id,
+        plateform: "systeme_io"
+      }
+    },
+    update: {},
+    create: {
+      cssCode: `#your_text_id {\nbackground: -webkit-linear-gradient(#eee, #333);\n
+      -webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n}`,
+      plateform: "systeme_io",
+      usage_guide: "https://youtu.be/4r9uhBk6yBo?si=mCNknM43Vv_PkH7p",
+      htmlCode: null,
+      jsCode: null,
+      componentId: gradientText.id
     }
   });
 }
