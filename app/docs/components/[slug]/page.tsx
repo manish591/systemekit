@@ -3,12 +3,13 @@ import { getComponentData } from './actions';
 import { notFound } from 'next/navigation';
 import { Platform } from '@prisma/client';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ChevronDown, Clipboard, CodeIcon, Eye } from 'lucide-react';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Clipboard, CodeIcon, Eye } from 'lucide-react';
 
 export default async function ComponentDetails({
   params,
@@ -64,17 +65,15 @@ export default async function ComponentDetails({
                 </TabsTrigger>
               </TabsList>
               <div className="flex gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-2 rounded-lg border px-3 py-2 text-sm hover:bg-accent">
-                    html
-                    <ChevronDown className="h-4 w-4" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem>HTML</DropdownMenuItem>
-                    <DropdownMenuItem>CSS</DropdownMenuItem>
-                    <DropdownMenuItem>JavaScript</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Select defaultValue="ghl">
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select Platform" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ghl">Go High Level</SelectItem>
+                    <SelectItem value="systeme">Systeme.io</SelectItem>
+                  </SelectContent>
+                </Select>
                 <div className="border p-2 rounded-lg">
                   <Clipboard className="h-full w-4" />
                 </div>

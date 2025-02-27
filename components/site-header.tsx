@@ -2,11 +2,11 @@
 
 import { SidebarIcon } from 'lucide-react';
 
-import { SearchForm } from '@/components/search-form';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useSidebar } from '@/components/ui/sidebar';
 import { DocsBreadcrumb } from './docs-breadcrumb';
+import CommandPalette from './command-palette';
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar();
@@ -24,7 +24,9 @@ export function SiteHeader() {
         </Button>
         <Separator orientation="vertical" className="mr-2 h-4" />
         <DocsBreadcrumb />
-        <SearchForm className="w-full sm:ml-auto sm:w-auto" />
+        <div className="w-full sm:ml-auto sm:w-auto">
+          <CommandPalette />
+        </div>
       </div>
     </header>
   );

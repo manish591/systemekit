@@ -3,9 +3,7 @@ import { Hero } from '@/components/hero';
 import { Problem } from '@/components/problem';
 import { Solution } from '@/components/solution';
 import { HowItWorks } from '@/components/how-it-works';
-import { Pricing } from '@/components/pricing';
 import { Faq } from '@/components/faq';
-import { Cta } from '@/components/cta';
 import { Footer } from '@/components/footer';
 
 export default function Home() {
@@ -16,9 +14,9 @@ export default function Home() {
       <Problem />
       <Solution />
       <HowItWorks />
-      <Pricing />
+      {/* <Pricing /> */}
       <Faq />
-      <Cta />
+      {/* <Cta /> */}
       <Footer />
     </main>
   );

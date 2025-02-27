@@ -32,10 +32,10 @@ export function Navbar() {
           <Button variant="ghost" className="flex" asChild>
             <Link href="#how-it-works">How it works?</Link>
           </Button>
-          <Button variant="ghost" className="ml-4 flex border" asChild>
+          <Button variant="ghost" className="ml-4 flex border hidden" asChild>
             <Link href="/login">Login</Link>
           </Button>
-          <Button>
+          <Button className="hidden">
             <div className="flex gap-2 items-center">
               <Link href="#pricing">Get all-access</Link>
               <MoveRight className="h-full mt-1" />
@@ -90,12 +90,12 @@ export function Navbar() {
                     </Button>
                     <Button
                       variant="ghost"
-                      className="flex border mt-6"
+                      className="flex border mt-6 hidden"
                       asChild
                     >
                       <Link href="/login">Login</Link>
                     </Button>
-                    <Button asChild>
+                    <Button asChild className="hidden">
                       <Link href="#pricing">
                         <div className="flex gap-2 items-center">
                           <p>Get all-access</p>
