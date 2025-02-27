@@ -51,22 +51,8 @@ export async function getComponentData(componentSlug: string, plateform: keyof t
 
     // paid component
     const session = await auth();
-    const accountDetails = await prisma.user.findUnique({
-      where: {
-        id: session?.user?.id
-      },
-      include: {
-        accounts: {
-          where: {
-            userId: session?.user?.id
-          }
-        }
-      }
-    });
 
-    const accountTier = accountDetails?.accounts[0].tier;
-
-    if (accountTier === "FREE") {
+    if (!session) {
       return {
         status: 200,
         message: "data fetched successfully",
