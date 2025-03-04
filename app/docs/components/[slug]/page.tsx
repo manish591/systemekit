@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Clipboard, CodeIcon, Eye } from 'lucide-react';
+import CodeBlock from '@/components/code-block';
 
 export default async function ComponentDetails({
   params,
@@ -24,8 +25,7 @@ export default async function ComponentDetails({
   );
 
   if (componentData.status == 404) {
-    notFound();
-    return;
+    return notFound();
   }
 
   if (componentData.status == 500) {
@@ -37,8 +37,26 @@ export default async function ComponentDetails({
     );
   }
 
+  function craftCompleteCode() {
+    let completeCode = '';
+
+    if (componentData.data?.htmlCode) {
+      completeCode += `${componentData.data?.htmlCode}`;
+    }
+
+    if (componentData.data?.cssCode) {
+      completeCode += `<style>\n${componentData.data?.cssCode}\n</style>`;
+    }
+
+    if (componentData.data?.jsCode) {
+      completeCode += `<script>${componentData.data?.jsCode}</script>`;
+    }
+
+    return completeCode;
+  }
+
   return (
-    <main className="max-w-5xl">
+    <main className="max-w-6xl">
       <div>
         <h1 className="text-3xl font-semibold capitalize">
           {componentData.data?.name}
@@ -86,9 +104,9 @@ export default async function ComponentDetails({
               Preview content goes here
             </div>
           </TabsContent>
-          <TabsContent value="code" className="w-full border rounded-lg">
-            <div className="rounded-lg bg-muted/50 p-8">
-              <pre className="text-sm">{`${componentData.data?.cssCode}`}</pre>
+          <TabsContent value="code" className="w-full rounded-lg">
+            <div className="rounded-lg">
+              <CodeBlock code={craftCompleteCode()} language="" />
             </div>
           </TabsContent>
         </Tabs>

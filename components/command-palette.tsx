@@ -6,26 +6,16 @@ import { Button } from '@/components/ui/button';
 import { Search, File, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DialogTitle } from '@radix-ui/react-dialog';
+import { commandPaletteLinks } from '@/constants/command-palette-link';
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Links data
-  const links = [
-    { title: 'Home', href: '/' },
-    { title: 'Introduction', href: '/docs/getting-started/introduction' },
-    { title: 'Gradient Generator', href: '/docs/tools/gradient-generator' },
-    { title: 'Gradient Button', href: '/docs/components/gradient-button' },
-    { title: 'Gradient Text', href: '/docs/components/gradient-text' },
-  ];
-
-  // Filter links based on search query
-  const filteredLinks = links.filter((link) =>
+  const filteredLinks = commandPaletteLinks.filter((link) =>
     link.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  // Handle keyboard shortcut to open command palette (Cmd+K or Ctrl+K)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -40,7 +30,6 @@ export default function CommandPalette() {
 
   return (
     <>
-      {/* Search button that opens the command palette */}
       <Button
         variant="outline"
         className="w-full justify-between text-muted-foreground"

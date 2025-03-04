@@ -20,56 +20,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { getUserData } from '@/app/actions';
 import { Tier } from '@prisma/client';
-
-const data = {
-  versions: ['Systeme.io', 'GHL'],
-  navMain: [
-    {
-      title: 'Getting Started',
-      url: '#',
-      items: [
-        {
-          title: 'Introduction',
-          url: '/docs/getting-started/introduction',
-        },
-        {
-          title: 'How to use?',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'tools',
-      url: '#',
-      items: [
-        {
-          title: 'Gradient Generator',
-          url: '/docs/tools/gradient-generator',
-        },
-      ],
-    },
-    {
-      title: 'Button',
-      url: '#',
-      items: [
-        {
-          title: 'Gradient Button',
-          url: '/docs/components/gradient-button',
-        },
-      ],
-    },
-    {
-      title: 'Text',
-      url: '#',
-      items: [
-        {
-          title: 'Gradient Text',
-          url: '/docs/components/gradient-text',
-        },
-      ],
-    },
-  ],
-};
+import { sidebarData } from '@/constants/sidebar-data';
 
 type UserData = {
   name: string;
@@ -99,26 +50,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <Link href="#" className="mt-2">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-                  <Image src="/logo.svg" alt="logo" width={30} height={30} />
-                </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">ghlcn</span>
-                  {isLoggedIn && (
-                    <span className="truncate text-xs capitalize">
-                      {userData?.tier}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            </SidebarMenuButton>
+            <Link href="#" className="mt-2 flex items-center gap-2 pl-2">
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+                <Image src="/logo.svg" alt="logo" width={30} height={30} />
+              </div>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-semibold">ghlcn</span>
+                {isLoggedIn && (
+                  <span className="truncate text-xs capitalize">
+                    {userData?.tier}
+                  </span>
+                )}
+              </div>
+            </Link>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {data.navMain.map((item) => (
+        {sidebarData.navMain.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>

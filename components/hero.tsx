@@ -42,9 +42,9 @@ export function Hero() {
               designs.
             </p>
             <Button asChild size="lg" className="mb-4 px-8">
-              <Link href="/docs/components/gradient-button">
+              <Link href="/docs/getting-started/introduction">
                 <span className="flex items-center gap-2">
-                  Browse Components
+                  View Documentation
                   <MoveRight className="h-full mt-1" />
                 </span>
               </Link>

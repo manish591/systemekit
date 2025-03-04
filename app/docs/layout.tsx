@@ -2,7 +2,7 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { SiteHeader } from '@/components/site-header';
 
-export default function DocsLayout({
+export default async function DocsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
