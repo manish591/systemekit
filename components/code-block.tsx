@@ -2,13 +2,19 @@
 
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vs } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import {
+  vscDarkPlus,
+  vs,
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Button } from './ui/button';
+import { useTheme } from 'next-themes';
 
 export function CodeBlock({
   code,
   language,
 }: Readonly<{ code: string; language: string }>) {
   const [copied, setCopied] = useState(false);
+  const { theme } = useTheme();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(code);
@@ -17,17 +23,21 @@ export function CodeBlock({
   };
 
   return (
-    <div className="relative">
-      <button
+    <div className="relative border rounded-md p-2">
+      <Button
         onClick={copyToClipboard}
-        className="absolute right-2 top-2 bg-gray-700 text-white px-2 py-1 rounded text-sm"
+        variant="outline"
+        className="absolute right-2 top-2 rounded text-sm"
       >
         {copied ? 'Copied!' : 'Copy'}
-      </button>
+      </Button>
       <SyntaxHighlighter
         language={language}
-        style={vs}
-        customStyle={{ padding: '1rem', borderRadius: '0.5rem' }}
+        style={theme === 'dark' ? vscDarkPlus : vs}
+        customStyle={{
+          border: 'none',
+          backgroundColor: 'transparent',
+        }}
       >
         {code}
       </SyntaxHighlighter>
