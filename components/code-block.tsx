@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vs } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-const CodeBlock = ({
+export function CodeBlock({
   code,
   language,
-}: Readonly<{ code: string; language: string }>) => {
+}: Readonly<{ code: string; language: string }>) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -33,6 +33,4 @@ const CodeBlock = ({
       </SyntaxHighlighter>
     </div>
   );
-};
-
-export default CodeBlock;
+}

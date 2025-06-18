@@ -16,12 +16,12 @@ import CommandPalette from './command-palette';
 export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b transition-all border-border/40 bg-background/60 backdrop-blur-lg">
-      <div className="px-4 md:px-8 max-w-[1400px] flex mx-auto h-16 items-center justify-between">
+      <div className="px-4 md:px-8 max-w-[1300px] flex mx-auto h-16 items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center space-x-2">
             <div className="flex items-center gap-2">
-              <CodeXml className="w-6 h- mt-[2px]" strokeWidth={2} />
-              <span className="text-xl font-semibold">Systemekit</span>
+              <CodeXml className="w-6 h-6 mt-[2px]" strokeWidth={2} />
+              <span className="text-lg font-semibold">Systemekit</span>
             </div>
           </Link>
           <div className="flex items-center gap-6 font-medium text-foreground/60 text-sm">

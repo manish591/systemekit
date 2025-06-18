@@ -1,7 +1,9 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getComponentData } from './actions';
 import { notFound } from 'next/navigation';
+import { Clipboard, CodeIcon, Eye } from 'lucide-react';
 import { Platform } from '@prisma/client';
+import { getComponentData } from './actions';
+import { CodeBlock } from '@/components/code-block';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Select,
   SelectContent,
@@ -9,8 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Clipboard, CodeIcon, Eye } from 'lucide-react';
-import CodeBlock from '@/components/code-block';
 
 export default async function ComponentDetails({
   params,

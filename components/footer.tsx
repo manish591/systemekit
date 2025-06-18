@@ -3,8 +3,8 @@ import { CodeXml, Facebook, Twitter, Youtube } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer id="footer" className="bg-background">
-      <div className="max-w-7xl mx-auto px-8 pt-16 pb-4">
+    <footer id="footer" className="bg-accent dark:bg-accent/40">
+      <div className="max-w-[1300px] mx-auto px-4 md:px-8 pt-16 pb-4">
         <Link href="/" className="flex items-center space-x-2">
           <div className="flex items-center gap-2">
             <CodeXml className="w-6 h- mt-[2px]" strokeWidth={2} />

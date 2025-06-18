@@ -1,12 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import { Search, File, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { DialogTitle } from '@radix-ui/react-dialog';
-import { commandPaletteLinks } from '@/constants/command-palette-link';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+
+export const commandPaletteLinks = [
+  { title: 'Home', href: '/' },
+  { title: 'Introduction', href: '/docs/getting-started/introduction' },
+  { title: 'Gradient Generator', href: '/docs/tools/gradient-generator' },
+  { title: 'Gradient Button', href: '/docs/components/gradient-button' },
+  { title: 'Gradient Text', href: '/docs/components/gradient-text' },
+];
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
@@ -39,7 +45,6 @@ export default function CommandPalette() {
         <Search className="h-4 w-4" />
       </Button>
 
-      {/* Command palette dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTitle className="sr-only">commnad palette</DialogTitle>
         <DialogContent className="sm:max-w-[550px] p-0">

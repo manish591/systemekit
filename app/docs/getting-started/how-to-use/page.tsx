@@ -1,3 +1,3 @@
 export default function HowToUse() {
-  return <div>manish</div>;
+  return <div>How To use?</div>;
 }

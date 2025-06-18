@@ -22,8 +22,10 @@ export function VideoPlayer({
 
   return (
     <>
-      <div
-        className="relative w-full cursor-pointer"
+      <button
+        type="button"
+        className="relative w-full cursor-pointer p-0 bg-transparent border-none focus:outline-none"
+        aria-label={`Play video: ${title}`}
         onClick={() => setIsOpen(true)}
       >
         <div className="group border relative aspect-video w-full overflow-hidden rounded-lg">
@@ -46,7 +48,7 @@ export function VideoPlayer({
             </div>
           </div>
         </div>
-      </div>
+      </button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTitle className="sr-only">{title}</DialogTitle>
         <DialogContent className="p-0 border-2 w-[90%] md:max-w-[500px] lg:max-w-[800px] bg-transparent rounded-lg">

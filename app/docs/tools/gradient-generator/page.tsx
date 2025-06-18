@@ -1,3 +1,3 @@
 export default function GrandientGenerator() {
-  return <div>page this</div>;
+  return <div>gradient generator</div>;
 }
