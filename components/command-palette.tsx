@@ -31,17 +31,12 @@ export default function CommandPalette() {
   return (
     <>
       <Button
-        variant="outline"
-        className="w-full justify-between text-muted-foreground"
+        variant="ghost"
+        size="icon"
+        className="text-foreground/60 rounded-full text-sm"
         onClick={() => setOpen(true)}
       >
-        <div className="flex items-center">
-          <Search className="mr-2 h-4 w-4" />
-          <span>Search documentation...</span>
-        </div>
-        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-          <span className="text-xs">⌘</span>K
-        </kbd>
+        <Search className="h-4 w-4" />
       </Button>
 
       {/* Command palette dialog */}

@@ -26,7 +26,7 @@ function FAQItem({ question, isOpen, onClick }: Readonly<FAQItemProps>) {
       </button>
       {isOpen && (
         <div className="px-6 pb-6">
-          <p className="text-muted-foreground">
+          <p className="text-foreground/60">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor,
             eveniet accusantium necessitatibus velit mollitia illum ab veniam,
             eum odit error, ipsam quis aperiam
@@ -43,7 +43,7 @@ export function Faq() {
     <section id="faqs" className="py-24 lg:py-32">
       <div className="max-w-5xl mx-auto px-4 lg:px-0">
         <div className="text-center mb-12">
-          <p className="text-md font-mono text-primary mb-8 tracking-wide uppercase">
+          <p className="text-md text-foreground mb-8 tracking-wide uppercase">
             FAQ
           </p>
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">
@@ -60,9 +60,12 @@ export function Faq() {
                 onClick={() => setOpenItem(openItem === index ? null : index)}
               />
             ))}
-            <p className="text-center mt-8 text-gray-600">
+            <p className="text-center mt-8 text-foreground/60">
               Still have questions? Email us at{' '}
-              <a href="mailto:support@acme.ai" className="text-black underline">
+              <a
+                href="mailto:support@acme.ai"
+                className="text-foreground underline"
+              >
                 support@acme.ai
               </a>
             </p>
