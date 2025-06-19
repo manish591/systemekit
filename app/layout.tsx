@@ -2,8 +2,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/footer';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -30,9 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          {children}
         </ThemeProvider>
       </body>
     </html>
