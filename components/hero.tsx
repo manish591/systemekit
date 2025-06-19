@@ -19,7 +19,7 @@ export function Hero() {
           )}
         />
         <div className="flex flex-col items-center justify-center px-4 pt-16 md:pt-28 z-10">
-          <Link href="/docs/tools/gradient-generator">
+          <Link href="/docs/tools">
             <div className="text-sm font-semibold mb-10 inline-flex items-center gap-2 rounded-full bg-background shadow-md border px-2 py-1">
               <div className="flex items-center gap-2 px-2 py-1 border-r">
                 <span className="text-amber-400">📣</span>

@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, CodeXml, ChevronRight } from 'lucide-react';
+import { Menu, CodeXml, ChevronRight, User } from 'lucide-react';
+import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
+import CommandPalette from '@/components/command-palette';
 import {
   Sheet,
   SheetContent,
@@ -11,9 +13,19 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import CommandPalette from './command-palette';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
 
-export function Navbar() {
+export async function Navbar() {
+  const session = await auth();
+  const isLoggedIn = !!session?.user;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b transition-all border-border/40 bg-background/60 backdrop-blur-lg">
       <div className="px-4 md:px-8 max-w-[1300px] flex mx-auto h-16 items-center justify-between">
@@ -26,7 +38,7 @@ export function Navbar() {
           </Link>
           <div className="flex items-center gap-6 font-medium text-foreground/60 text-sm">
             <Link href="/docs/getting-started/introduction">Docs</Link>
-            <Link href="/docs/tools/gradient-generator">Tools</Link>
+            <Link href="/docs/tools">Tools</Link>
             <Link href="#pricing">Pricing</Link>
           </div>
         </div>
@@ -36,17 +48,36 @@ export function Navbar() {
           <div className="w-full sm:ml-auto sm:w-auto">
             <CommandPalette />
           </div>
-          <div className="hidden md:flex items-center gap-4 ml-2">
-            <Button variant="ghost" className="flex border" asChild>
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button>
-              <div className="flex gap-2 items-center">
-                <Link href="#pricing">Get all-access</Link>
-                <ChevronRight className="h-full mt-1" />
-              </div>
-            </Button>
-          </div>
+          {!isLoggedIn ? (
+            <div className="hidden md:flex items-center gap-4 ml-2">
+              <Button variant="ghost" className="flex border" asChild>
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button>
+                <div className="flex gap-2 items-center">
+                  <Link href="#pricing">Get all-access</Link>
+                  <ChevronRight className="h-full mt-1" />
+                </div>
+              </Button>
+            </div>
+          ) : (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button variant="outline" className="font-normal h-8">
+                  <User className="w-4 h-4 mt-[3px]" />
+                  {session?.user?.email}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel className="text-sm font-semibold px-2">
+                  My Account
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Signout</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
 
         <div className="block md:hidden">

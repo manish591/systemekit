@@ -58,3 +58,15 @@ export async function getUserData() {
     }
   }
 }
+
+export async function getAllComponents() {
+  const data = await prisma.component.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true
+    }
+  });
+
+  return data;
+}
