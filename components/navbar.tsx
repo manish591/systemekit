@@ -21,10 +21,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
+import { isUserAdmin } from '@/app/admin/action';
 
 export async function Navbar() {
   const session = await auth();
   const isLoggedIn = !!session?.user;
+  const isAdmin = await isUserAdmin();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b transition-all border-border/40 bg-background/60 backdrop-blur-lg">
@@ -32,14 +34,19 @@ export async function Navbar() {
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center space-x-2">
             <div className="flex items-center gap-2">
-              <CodeXml className="w-6 h-6 mt-[2px]" strokeWidth={2} />
-              <span className="text-lg font-semibold">Systemekit</span>
+              <CodeXml className="w-6 h-6 mt-[2px]" strokeWidth={3} />
+              <span className="text-lg font-bold">Systemekit</span>
             </div>
           </Link>
           <div className="flex items-center gap-6 font-medium text-foreground/60 text-sm">
             <Link href="/docs/getting-started/introduction">Docs</Link>
             <Link href="/docs/tools">Tools</Link>
             <Link href="#pricing">Pricing</Link>
+            {isAdmin && (
+              <Link href="/admin" className="flex items-center gap-1">
+                Admin
+              </Link>
+            )}
           </div>
         </div>
 
@@ -127,7 +134,7 @@ export async function Navbar() {
                     </Button>
                     <Button
                       variant="ghost"
-                      className="flex border mt-6 hidden"
+                      className="border mt-6 hidden"
                       asChild
                     >
                       <Link href="/login">Login</Link>

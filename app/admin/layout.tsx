@@ -8,9 +8,9 @@ export default async function AdminLayout({
 }>) {
   const isAdmin = await isUserAdmin();
 
-  // if (!isAdmin) {
-  //   return redirect('/');
-  // }
+  if (!isAdmin) {
+    return redirect('/');
+  }
 
   return <div>{children}</div>;
 }

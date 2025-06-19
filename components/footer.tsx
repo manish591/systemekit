@@ -14,16 +14,8 @@ export function Footer() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-8">
           <div>
-            <h2 className="text-lg text-foreground mb-4">Product</h2>
-            <ul className="flex flex-col gap-4">
-              <li>
-                <Link
-                  href="/docs/components"
-                  className="text-foreground/60 hover:text-foreground"
-                >
-                  Components
-                </Link>
-              </li>
+            <h2 className="font-semibold text-foreground mb-4">Product</h2>
+            <ul className="flex flex-col gap-4 text-sm">
               <li>
                 <Link
                   href="/docs/tools"
@@ -32,15 +24,23 @@ export function Footer() {
                   Tools
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/docs/components"
+                  className="text-foreground/60 hover:text-foreground text-sm"
+                >
+                  Components
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
-            <h2 className="text-lg text-foreground mb-4">Company</h2>
+            <h2 className="font-semibold text-foreground mb-4">Company</h2>
             <ul className="flex flex-col gap-4">
               <li>
                 <Link
                   href="/blog"
-                  className="text-foreground/60 hover:text-foreground"
+                  className="text-foreground/60 hover:text-foreground text-sm"
                 >
                   Blog
                 </Link>
@@ -48,14 +48,14 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="text-lg text-foreground mb-4">Social</h2>
+            <h2 className="font-semibold text-foreground mb-4">Social</h2>
             <ul className="flex gap-4 md:flex-col">
               <li>
                 <a
                   href="https://www.youtube.com/@gauravlakheraofficial"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/60 hover:text-foreground flex items-center"
+                  className="text-foreground/60 hover:text-foreground flex items-center text-sm"
                 >
                   <Youtube className="w-5 h-5 mr-2" /> YouTube
                 </a>

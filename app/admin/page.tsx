@@ -1,105 +1,83 @@
-import { Plus } from 'lucide-react';
-import Image from 'next/image';
-
-import { Badge } from '@/components/ui/badge';
+import { Filter, Plus, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import Link from 'next/link';
-import CreateComponentForm from './create-component-form';
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
+import { Input } from '@/components/ui/input';
+import { ComponentCard } from './component-card';
 import { getAllComponents } from './action';
-import { BASE_URL } from '@/constants/app';
-
-function getBadgeVariant(tier: string) {
-  if (tier === 'PRO') return 'destructive';
-  if (tier === 'FREE') return 'default';
-  return 'secondary';
-}
+import { CreateComponent } from './create-component';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export default async function Admin() {
-  const componentsData = await getAllComponents();
+  const allComponents = await getAllComponents();
 
   return (
-    <div>
-      <header className="w-full py-4 px-8 bg-background border sticky top-0">
-        <div className="flex max-w-7xl mx-auto justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div>
-              <Image src="/logo.svg" alt="logo" width={30} height={30} />
-            </div>
-            <span className="text-xl font-semibold">ghlcn</span>
-          </Link>
-          <Dialog>
-            <DialogTrigger className="bg-primary rounded-md py-3 px-6 text-white flex items-center gap-1">
-              <Plus className="h-4 w-4" />
-              <span>Add New Component</span>
-            </DialogTrigger>
-            <DialogContent className="p-0">
-              <DialogHeader className="py-4 px-5">
-                <DialogTitle>Create New Component</DialogTitle>
-                <DialogDescription>
-                  Fill in the details to create a new component.
-                </DialogDescription>
-              </DialogHeader>
-              <CreateComponentForm />
-            </DialogContent>
-          </Dialog>
+    <>
+      <Navbar />
+      <div className="max-w-[1300px] mx-auto px-4 md:px-8 py-4 pb-24">
+        {/* header */}
+        <div className="mb-8">
+          <h1 className="text-xl font-medium text-foreground">Components</h1>
+          <p className="text-foreground/60 text-sm">
+            Manage and browse your UI component collection
+          </p>
         </div>
-      </header>
-      <div className="grid min-h-screen w-full lg:grid-cols-1 max-w-7xl mx-auto">
-        <div className="flex flex-col">
-          <main className="flex flex-1 flex-col gap-4 md:gap-8 py-12">
-            <div className="flex items-center justify-between">
-              <h1 className="text-lg font-semibold md:text-2xl">Components</h1>
+        {/* controls */}
+        <div className="mb-8">
+          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+            <div className="flex flex-col sm:flex-row gap-4 flex-1">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/60 h-4 w-4" />
+                <Input placeholder="Search components..." className="pl-10" />
+              </div>
+              <div className="relative">
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/60 h-4 w-4" />
+                <Select>
+                  <SelectTrigger className="w-48 pl-10">
+                    <SelectValue placeholder="Filter by category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="free">Free</SelectItem>
+                    <SelectItem value="pro">Pro</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {componentsData.data ? (
-                componentsData.data.map((component) => (
-                  <Card key={component.id} className="overflow-hidden">
-                    <CardHeader className="p-4">
-                      <div className="flex items-center justify-between">
-                        <CardTitle>{component.name}</CardTitle>
-                        <Badge variant={getBadgeVariant(component.accessLevel)}>
-                          {component.accessLevel}
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-4 pt-0">
-                      <p className="line-clamp-2 text-sm text-muted-foreground">
-                        {component.description}
-                      </p>
-                    </CardContent>
-                    <CardFooter className="p-4">
-                      <Link
-                        href={`${BASE_URL}/docs/components/${component.slug}`}
-                      >
-                        <Button variant="outline" className="w-full">
-                          View Details
-                        </Button>
-                      </Link>
-                    </CardFooter>
-                  </Card>
-                ))
-              ) : (
-                <div></div>
-              )}
-            </div>
-          </main>
+            <CreateComponent />
+          </div>
         </div>
+        {/* Components Grid */}
+        {allComponents.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {allComponents.map((component) => (
+              <ComponentCard key={component.id} component={component} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Search className="h-8 w-8 text-gray-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              No components found
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Try adjusting your search criteria
+            </p>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Your First Component
+            </Button>
+          </div>
+        )}
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

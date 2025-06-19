@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import {
@@ -46,20 +45,19 @@ const formSchema = z.object({
   accessLevel: z.enum(['pro', 'free'], {
     required_error: 'Please select an access level.',
   }),
-  platform: z.enum(['gohighlevel', 'system'], {
-    required_error: 'Please select a platform.',
-  }),
   cssCode: z.string().optional(),
   htmlCode: z.string().optional(),
   jsCode: z.string().optional(),
-  usageGuide: z.string().min(10, {
-    message: 'Usage guide must be at least 10 characters.',
+  usageGuide: z.string().url({
+    message: 'Please enter a valid youtube video URL.',
   }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function CreateComponentForm() {
+export function ComponentForm({
+  setCloseFormDialog,
+}: Readonly<{ setCloseFormDialog: (value: boolean) => void }>) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -68,7 +66,6 @@ export default function CreateComponentForm() {
       description: '',
       preview_iframe: '',
       accessLevel: undefined,
-      platform: undefined,
       cssCode: '',
       htmlCode: '',
       jsCode: '',
@@ -76,18 +73,16 @@ export default function CreateComponentForm() {
     },
   });
 
-  // Define the submit handler
   function onSubmit(data: FormValues) {
     console.log(data);
-    // Here you would typically send the data to your API
     alert('Form submitted successfully!');
   }
 
   return (
     <Card className="w-full max-w-4xl mx-auto border-0 shadow-none">
-      <div className="h-[500px] overflow-hidden overflow-y-scroll">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="h-[400px] overflow-hidden overflow-y-scroll">
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
@@ -97,7 +92,7 @@ export default function CreateComponentForm() {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Template name" {...field} />
+                        <Input placeholder="Component name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -110,7 +105,7 @@ export default function CreateComponentForm() {
                     <FormItem>
                       <FormLabel>Slug</FormLabel>
                       <FormControl>
-                        <Input placeholder="template-slug" {...field} />
+                        <Input placeholder="component-slug" {...field} />
                       </FormControl>
                       <FormDescription>
                         Used in URLs. Use lowercase letters, numbers, and
@@ -130,7 +125,7 @@ export default function CreateComponentForm() {
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Enter a description of the template"
+                        placeholder="Enter a description of the component"
                         rows={3}
                         {...field}
                       />
@@ -140,24 +135,24 @@ export default function CreateComponentForm() {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="preview_iframe"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Preview iFrame</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter preview iframe URL"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="preview_iframe"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Preview iFrame</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter preview iframe URL"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <FormField
                   control={form.control}
                   name="accessLevel"
@@ -176,32 +171,6 @@ export default function CreateComponentForm() {
                         <SelectContent>
                           <SelectItem value="free">Free</SelectItem>
                           <SelectItem value="pro">Pro</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="platform"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Platform</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select platform" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="gohighlevel">
-                            GoHighLevel
-                          </SelectItem>
-                          <SelectItem value="system">System</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -271,25 +240,28 @@ export default function CreateComponentForm() {
                   <FormItem>
                     <FormLabel>Usage Guide</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Enter usage instructions"
-                        rows={5}
-                        {...field}
-                      />
+                      <Input placeholder="Enter youtube video URL" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </CardContent>
-            <CardFooter>
-              <Button type="submit" className="ml-auto">
-                Create Template
-              </Button>
-            </CardFooter>
-          </form>
-        </Form>
-      </div>
+          </div>
+          <CardFooter className="flex items-center justify-between py-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setCloseFormDialog(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button type="submit">Create Component</Button>
+          </CardFooter>
+        </form>
+      </Form>
     </Card>
   );
 }
