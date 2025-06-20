@@ -38,16 +38,16 @@ export default async function DocsLayout({
                 Tools
               </h3>
               <Link
-                href="#"
+                href="/docs/tools/gradients"
                 className="block w-max hover:text-foreground transition-colors text-sm font-medium"
               >
-                Gradient Generator
+                Gradients
               </Link>
               <Link
-                href="#"
+                href="/docs/tools/box-shadows"
                 className="block w-max hover:text-foreground transition-colors text-sm font-medium"
               >
-                Shadow Generator
+                Box Shadows
               </Link>
             </div>
             <div className="space-y-3 text-foreground/60">

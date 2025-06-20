@@ -1,4 +1,7 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import { Palette, GhostIcon as Shadow } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import {
   Card,
   CardContent,
@@ -6,60 +9,26 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import {
-  Palette,
-  GhostIcon as Shadow,
-  Sparkles,
-  Zap,
-  Waves,
-} from 'lucide-react';
-import Image from 'next/image';
 
 const tools = [
   {
-    id: 'gradient-generator',
-    title: 'Cool Gradient',
+    id: 'gradients',
+    title: 'Gradients',
     description:
-      'Create beautiful CSS gradients with live preview and copy-paste code',
+      'Curated list of cool CSS gradients with live preview and copy-paste code',
     icon: Palette,
     category: 'Colors',
-    href: '/tools/gradient-generator',
+    href: '/docs/tools/gradients',
+    img: '/gradients.png',
   },
   {
-    id: 'shadow-generator',
-    title: 'Cool Shadows',
-    description:
-      'Generate stunning box shadows and text shadows with visual controls',
+    id: 'box-shadows',
+    title: 'Box Shadows',
+    description: 'Curated list of stunning box shadows that you can copy-paste',
     icon: Shadow,
     category: 'Effects',
-    href: '/tools/shadow-generator',
-  },
-  {
-    id: 'glassmorphism',
-    title: 'Glassmorphism',
-    description:
-      'Create modern glass-like effects with backdrop blur and transparency',
-    icon: Sparkles,
-    category: 'Effects',
-    href: '/tools/glassmorphism',
-  },
-  {
-    id: 'wave-generator',
-    title: 'Wave Generator',
-    description: 'Generate SVG waves and organic shapes for modern web designs',
-    icon: Waves,
-    category: 'Shapes',
-    href: '/tools/wave-generator',
-  },
-  {
-    id: 'css-filters',
-    title: 'CSS Filters',
-    description:
-      'Apply and combine CSS filters like blur, brightness, and contrast',
-    icon: Zap,
-    category: 'Effects',
-    href: '/tools/css-filters',
+    href: '/docs/tools/box-shadows',
+    img: '/box-shadows.webp',
   },
 ];
 
@@ -78,17 +47,14 @@ export default function ToolsPage() {
           return (
             <Link key={tool.id} href={tool.href}>
               <Card className="relative h-full overflow-hidden group hover:scale-[1.02] transition-transform duration-300 hover:shadow-2xl hover:shadow-primary/10">
-                {/* Tool Image */}
                 <div className="relative h-48 overflow-hidden rounded-t-lg">
                   <Image
-                    src={`/placeholder.webp`}
+                    src={tool.img}
                     width={400}
                     height={200}
                     alt={tool.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-
-                  {/* Category Badge on Image */}
                   <Badge
                     variant="secondary"
                     className="absolute top-3 right-3 text-xs backdrop-blur-sm font-medium px-3 py-1"
@@ -107,8 +73,6 @@ export default function ToolsPage() {
                   <CardDescription className="text-sm leading-relaxed text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">
                     {tool.description}
                   </CardDescription>
-
-                  {/* Hover Arrow */}
                   <div className="flex items-center mt-4 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-2 transition-all duration-300">
                     <span className="text-sm font-medium mr-2">Try it now</span>
                     <svg
