@@ -1,5 +1,4 @@
-import { Filter, Plus, Search } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Filter, Search } from 'lucide-react';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { Input } from '@/components/ui/input';
@@ -70,10 +69,7 @@ export default async function Admin() {
             <p className="text-gray-600 mb-6">
               Try adjusting your search criteria
             </p>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Your First Component
-            </Button>
+            <CreateComponent />
           </div>
         )}
       </div>

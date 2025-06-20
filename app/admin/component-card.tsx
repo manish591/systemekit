@@ -23,6 +23,24 @@ export function ComponentCard({ component }: Readonly<ComponentCardProps>) {
     }).format(date);
   };
 
+  function constructCode() {
+    let code = '';
+
+    if (component.htmlCode) {
+      code += `${component.htmlCode}\n\n`;
+    }
+
+    if (component.cssCode) {
+      code += `<style>${component.cssCode}</style>\n\n`;
+    }
+
+    if (component.jsCode) {
+      code += `<script>${component.jsCode}</script>\n\n`;
+    }
+
+    return code;
+  }
+
   return (
     <Card className="group hover:shadow-lg transition-all duration-200 hover:-translate-y-1">
       <CardHeader className="pb-3">
@@ -61,14 +79,14 @@ export function ComponentCard({ component }: Readonly<ComponentCardProps>) {
         {/* Code Preview */}
         <div className="bg-accent/40 rounded-lg p-3 border">
           <code className="text-sm text-foreground/80 font-mono line-clamp-2">
-            {`import { Button } from '@/components/ui/button';<Button variant="primary">Click Me</Button>`}
+            {constructCode()}
           </code>
         </div>
 
         {/* Created Date */}
         <div className="flex items-center text-sm text-foreground/60">
           <Calendar className="h-4 w-4 mr-2" />
-          Created {formatDate(new Date())}
+          Created {formatDate(component.createdAt)}
         </div>
 
         {/* Actions */}

@@ -23,6 +23,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { createNewComponent } from './action';
+import { useRouter } from 'next/navigation';
+import { Tier } from '@prisma/client';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -39,10 +42,10 @@ const formSchema = z.object({
   description: z.string().min(10, {
     message: 'Description must be at least 10 characters.',
   }),
-  preview_iframe: z.string().url({
+  previewIframe: z.string().url({
     message: 'Please enter a valid URL.',
   }),
-  accessLevel: z.enum(['pro', 'free'], {
+  accessLevel: z.nativeEnum(Tier, {
     required_error: 'Please select an access level.',
   }),
   cssCode: z.string().optional(),
@@ -53,18 +56,20 @@ const formSchema = z.object({
   }),
 });
 
-type FormValues = z.infer<typeof formSchema>;
+export type FormValues = z.infer<typeof formSchema>;
 
 export function ComponentForm({
   setCloseFormDialog,
 }: Readonly<{ setCloseFormDialog: (value: boolean) => void }>) {
+  const router = useRouter();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       slug: '',
       description: '',
-      preview_iframe: '',
+      previewIframe: '',
       accessLevel: undefined,
       cssCode: '',
       htmlCode: '',
@@ -73,9 +78,14 @@ export function ComponentForm({
     },
   });
 
-  function onSubmit(data: FormValues) {
-    console.log(data);
-    alert('Form submitted successfully!');
+  async function onSubmit(data: FormValues) {
+    try {
+      await createNewComponent(data);
+      router.refresh();
+      setCloseFormDialog(false);
+    } catch (err) {
+      console.log('Error creating component:', err);
+    }
   }
 
   return (
@@ -138,7 +148,7 @@ export function ComponentForm({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
-                  name="preview_iframe"
+                  name="previewIframe"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Preview iFrame</FormLabel>
@@ -169,8 +179,8 @@ export function ComponentForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="free">Free</SelectItem>
-                          <SelectItem value="pro">Pro</SelectItem>
+                          <SelectItem value={Tier.FREE}>Free</SelectItem>
+                          <SelectItem value={Tier.PRO}>Pro</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
