@@ -1,10 +1,15 @@
+'use client';
+
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Send } from 'lucide-react';
+import Link from 'next/link';
 
 export default function RequestAComponent() {
+  const [query, setQuery] = useState('');
+
   return (
     <section className="max-w-lg px-4 pb-24 mt-[-4px]">
       <h1 className="text-3xl font-bold mb-6">Request a Component</h1>
@@ -12,41 +17,36 @@ export default function RequestAComponent() {
         Need a specific component for your project? We&apos;re here to help!
       </p>
 
-      <form className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="email" className="text-base font-medium">
-            Email Address
-          </Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="your.email@example.com"
-            className="text-base"
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
+      <div className="space-y-6">
+        <div className="space-y-2 mb-6">
           <Label htmlFor="query" className="text-base font-medium">
             Component Request Details
           </Label>
           <Textarea
             id="query"
-            placeholder="Describe the component you need in detail... For example: 'I need a pricing table with 3 tiers, toggle for monthly/yearly billing, highlight on the middle tier, and integration with Stripe for payments. The design should match our brand colors and work well on mobile devices.'"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Describe the component you need in detail..."
             className="min-h-[150px] text-base"
             required
           />
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-foreground/40">
             Include details about functionality, design preferences,
             integrations needed, and any specific requirements or constraints.
           </p>
         </div>
 
-        <Button type="submit">
-          <Send className="w-4 h-4" />
-          Submit Component Request
-        </Button>
-      </form>
+        <Link
+          href={`mailto:manishdevrani777@gmail.com?subject=Component Request Details&body=${encodeURIComponent(
+            query,
+          )}`}
+        >
+          <Button>
+            <Send className="w-4 h-4" />
+            Submit Component Request
+          </Button>
+        </Link>
+      </div>
 
       <div>
         <p className="text-sm text-foreground/60 mt-6">
