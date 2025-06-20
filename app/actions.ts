@@ -59,14 +59,18 @@ export async function getUserData() {
   }
 }
 
-export async function getAllComponents() {
+export async function getComponentDocumentationSlugs() {
   const data = await prisma.component.findMany({
     select: {
-      id: true,
       name: true,
       slug: true
     }
   });
 
-  return data;
+  const modifiedData = data.map(item => ({
+    name: item.name,
+    href: `/docs/components/${item.slug}`
+  }));
+
+  return modifiedData;
 }

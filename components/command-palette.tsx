@@ -6,20 +6,21 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
-export const commandPaletteLinks = [
-  { title: 'Home', href: '/' },
-  { title: 'Introduction', href: '/docs/getting-started/introduction' },
-  { title: 'Gradient Generator', href: '/docs/tools/gradient-generator' },
-  { title: 'Gradient Button', href: '/docs/components/gradient-button' },
-  { title: 'Gradient Text', href: '/docs/components/gradient-text' },
-];
+type TCommandPaletteLink = {
+  name: string;
+  href: string;
+};
 
-export default function CommandPalette() {
+export default function CommandPalette({
+  commandPaletteLinks,
+}: Readonly<{
+  commandPaletteLinks: TCommandPaletteLink[];
+}>) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredLinks = commandPaletteLinks.filter((link) =>
-    link.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    link.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   useEffect(() => {
@@ -69,7 +70,7 @@ export default function CommandPalette() {
             <div className="mt-2 max-h-[300px] overflow-y-auto">
               {filteredLinks.map((link) => (
                 <a
-                  key={link.title}
+                  key={link.name}
                   href={link.href}
                   className={cn(
                     'flex items-center gap-2 rounded-md px-3 py-3 text-sm hover:bg-accent',
@@ -78,7 +79,7 @@ export default function CommandPalette() {
                   onClick={() => setOpen(false)}
                 >
                   <File className="h-4 w-4" />
-                  {link.title}
+                  {link.name}
                 </a>
               ))}
             </div>

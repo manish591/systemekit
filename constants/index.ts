@@ -1,1 +1,11 @@
 export const BASE_URL = "http://localhost:3000";
+
+export const BASE_COMMAND_PALLETE_LINKS = [
+  { name: 'Home', href: '/' },
+  { name: 'Introduction', href: '/docs/getting-started/introduction' },
+  { name: 'Tools', href: '/docs/tools' },
+  { name: 'Components', href: '/docs/components' },
+  { name: 'Pricing', href: '#pricing' },
+  { name: 'Shadow Generator', href: '/docs/tools/shadow-generator' },
+  { name: 'Gradient Generator', href: '/docs/tools/gradient-generator' },
+];

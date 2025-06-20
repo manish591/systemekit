@@ -19,14 +19,23 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
-import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
 import { isUserAdmin } from '@/app/admin/action';
+import { SignOutButton } from './signout-button';
+import { getComponentDocumentationSlugs } from '@/app/actions';
+import { BASE_COMMAND_PALLETE_LINKS } from '@/constants';
 
 export async function Navbar() {
   const session = await auth();
   const isLoggedIn = !!session?.user;
   const isAdmin = await isUserAdmin();
+
+  const allComponentsSlugs = await getComponentDocumentationSlugs();
+  const commandPalleteLinks = [
+    ...BASE_COMMAND_PALLETE_LINKS,
+    ...allComponentsSlugs,
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b transition-all border-border/40 bg-background/60 backdrop-blur-lg">
@@ -53,7 +62,7 @@ export async function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <div className="w-full sm:ml-auto sm:w-auto">
-            <CommandPalette />
+            <CommandPalette commandPaletteLinks={commandPalleteLinks} />
           </div>
           {!isLoggedIn ? (
             <div className="hidden md:flex items-center gap-4 ml-2">
@@ -81,7 +90,9 @@ export async function Navbar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Signout</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <SignOutButton />
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
