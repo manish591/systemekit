@@ -1,35 +1,15 @@
 import Link from 'next/link';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
-
-const SYSTEMEKIT_COMPONENTS = [
-  {
-    name: 'Button',
-    slug: 'button',
-  },
-  {
-    name: 'Gradient Button',
-    slug: 'graidient-button',
-  },
-  {
-    name: 'Carousel',
-    slug: 'carousel',
-  },
-  {
-    name: 'Image Hover',
-    slug: 'image-hover',
-  },
-  {
-    name: 'Other',
-    slug: 'other',
-  },
-];
+import { getComponentDocumentationSlugs } from '../actions';
 
 export default async function DocsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const allComponentsSlugs = await getComponentDocumentationSlugs();
+
   return (
     <>
       <Navbar />
@@ -58,12 +38,6 @@ export default async function DocsLayout({
                 Tools
               </h3>
               <Link
-                href="/docs/tools/clipper"
-                className="block w-max hover:text-foreground transition-colors text-sm font-medium"
-              >
-                Clipper
-              </Link>
-              <Link
                 href="#"
                 className="block w-max hover:text-foreground transition-colors text-sm font-medium"
               >
@@ -80,10 +54,10 @@ export default async function DocsLayout({
               <h3 className="font-semibold text-md pb-1 text-foreground">
                 Components
               </h3>
-              {SYSTEMEKIT_COMPONENTS.map((component) => {
+              {allComponentsSlugs.map((component) => {
                 return (
                   <Link
-                    href={`/docs/components/${component.slug}`}
+                    href={component.href}
                     key={component.name}
                     className="block w-max hover:text-foreground transition-colors text-sm font-medium"
                   >
