@@ -1,6 +1,6 @@
 export default function Docs() {
   return (
-    <section className="max-w-4xl px-4 pb-24 mt-[-4px]">
+    <section className="px-4 pb-24 mt-[-4px]">
       <h1 className="text-3xl font-bold mb-6">Introduction</h1>
       <p className="mb-6 text-foreground/60">
         Build beautiful, high-converting pages on{' '}
