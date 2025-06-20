@@ -27,10 +27,10 @@ export default async function DocsLayout({
                 Introdution
               </Link>
               <Link
-                href="/docs/getting-started/how-to-use"
+                href="/docs/getting-started/request-a-component"
                 className="block w-max hover:text-foreground transition-colors text-sm font-medium"
               >
-                How to use?
+                Request a Component
               </Link>
             </div>
             <div className="space-y-3 text-foreground/60">
