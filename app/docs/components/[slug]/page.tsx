@@ -1,98 +1,61 @@
-import { CodeIcon, Eye } from 'lucide-react';
+import { CodeIcon, Eye, Lock, Star, Code } from 'lucide-react';
 import { CodeBlock } from '@/components/code-block';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { isProAccount } from './actions';
+import { prisma } from '@/prisma';
+import { notFound } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export default async function ComponentDetails({
   params,
 }: Readonly<{
   params: Promise<{ slug: string }>;
 }>) {
-  console.log('Component Details Page', params);
-  // const componentData = await getComponentData(
-  //   (
-  //     await params
-  //   ).slug,
-  //   Platform.systeme_io,
-  // );
+  const { slug } = await params;
+  const isPremiumUser = await isProAccount();
 
-  // if (componentData.status == 404) {
-  //   return notFound();
-  // }
+  const componentData = await prisma.component.findUnique({
+    where: {
+      slug,
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      slug: true,
+      previewIframe: true,
+      usageGuide: true,
+      htmlCode: isPremiumUser,
+      cssCode: isPremiumUser,
+      jsCode: isPremiumUser,
+    },
+  });
 
-  // if (componentData.status == 500) {
-  //   return (
-  //     <main className="max-w-5xl text-center mt-24">
-  //       <h2 className="text-2xl">Data not found</h2>
-  //       <p className="text-muted-foreground">Try again later</p>
-  //     </main>
-  //   );
-  // }
+  if (!componentData) {
+    return notFound();
+  }
 
-  const htmlCode = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Button</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-
-    #myButton {
-      padding: 15px 30px;
-      font-size: 18px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    #myButton.clicked {
-      background-color: #28a745;
-    }
-  </style>
-</head>
-<body>
-  <button id="myButton">Click Me</button>
-
-  <script>
-    const button = document.getElementById('myButton');
-
-    button.addEventListener('click', () => {
-      button.classList.toggle('clicked');
-      if (button.classList.contains('clicked')) {
-        button.textContent = 'Clicked!';
-      } else {
-        button.textContent = 'Click Me';
-      }
-    });
-  </script>
-</body>
-</html>
-`;
+  const componentCode = `${componentData.htmlCode ?? ''}\n\n<style>\n${
+    componentData.cssCode ?? ''
+  }\n</style>\n\n${componentData.jsCode ?? ''}`;
 
   return (
     <main className="max-w-6xl">
       <div>
-        <h1 className="text-3xl font-semibold capitalize">Button</h1>
+        <h1 className="text-3xl font-semibold capitalize">
+          {componentData.name}
+        </h1>
         <p className="mt-4 text-muted-foreground">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad eveniet,
-          dolore provident vero cumque atque nesciunt ut, alias temporibus rem
-          eligendi nemo porro assumenda optio voluptatem itaque et dolor.
-          Obcaecati! Nemo possimus sequi libero tempore! Saepe nisi culpa
-          consequatur, ex architecto libero doloribus assumenda impedit aliquid
-          rerum odio tempore nam, voluptatibus obcaecati. Suscipit quo
-          dignissimos expedita repellendus quae illo? Sint!
+          {componentData.description}
         </p>
       </div>
       <div className="mt-10">
@@ -118,9 +81,9 @@ export default async function ComponentDetails({
           <TabsContent value="preview" className="w-full">
             <div className="rounded-lg border p-4">
               <iframe
-                src="https://manishdevrani777.systeme.io/72d16711"
+                src={componentData.previewIframe!}
                 width="100%"
-                height="500"
+                height="400"
                 className="border-none rounded-lg"
                 loading="lazy"
                 title="Component Preview"
@@ -128,9 +91,77 @@ export default async function ComponentDetails({
             </div>
           </TabsContent>
           <TabsContent value="code" className="w-full rounded-lg">
-            <div className="rounded-lg">
-              <CodeBlock code={htmlCode} language="html" />
-            </div>
+            {isPremiumUser ? (
+              <div className="rounded-lg">
+                <CodeBlock code={componentCode} language="html" />
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Locked Premium Content */}
+                <Card className="relative overflow-hidden">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Code className="h-5 w-5" />
+                      {componentData.name}
+                      <Badge variant="secondary" className="ml-auto">
+                        <Star className="h-3 w-3 mr-1" />
+                        Premium
+                      </Badge>
+                    </CardTitle>
+                    <CardDescription className="max-w-[500px] truncate">
+                      {componentData.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="relative">
+                      <div className="bg-muted p-4 rounded-lg blur-sm select-none">
+                        <pre className="text-sm">
+                          {`// Advanced React Hook Pattern
+import { useState, useEffect, useCallback } from 'react';
+
+const useAdvancedState = (initialValue) => {
+  const [state, setState] = useState(initialValue);
+  const [history, setHistory] = useState([initialValue]);
+  
+  const undo = useCallback(() => {
+    if (history.length > 1) {
+      const newHistory = history.slice(0, -1);
+      setHistory(newHistory);
+      setState(newHistory[newHistory.length - 1]);
+    }
+  }, [history]);
+  
+  return { state, updateState, undo, canUndo: history.length > 1 };
+};
+
+export default useAdvancedState;`}
+                        </pre>
+                      </div>
+                      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+                        <Card className="w-full max-w-md mx-4">
+                          <CardHeader className="text-center">
+                            <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                              <Lock className="h-6 w-6 text-primary" />
+                            </div>
+                            <CardTitle>Premium Content</CardTitle>
+                            <CardDescription>
+                              Upgrade to Premium to access advanced code
+                              examples and tutorials
+                            </CardDescription>
+                          </CardHeader>
+                          <CardFooter>
+                            <Button className="w-full">
+                              <Star className="h-4 w-4 mr-2" />
+                              Upgrade to Premium
+                            </Button>
+                          </CardFooter>
+                        </Card>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>
@@ -140,7 +171,8 @@ export default async function ComponentDetails({
           <iframe
             width="100%"
             height="500"
-            src="https://www.youtube.com/embed/mn0Rs4ABFBg?si=gyPn0woxdZ4Wp6lo"
+            className="rounded-xl"
+            src={componentData.usageGuide!}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
