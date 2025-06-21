@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 export default async function ComponentDetails({
   params,
@@ -150,10 +151,12 @@ export default useAdvancedState;`}
                             </CardDescription>
                           </CardHeader>
                           <CardFooter>
-                            <Button className="w-full">
-                              <Star className="h-4 w-4 mr-2" />
-                              Upgrade to Premium
-                            </Button>
+                            <Link href="/#pricing" className="mx-auto">
+                              <Button className="w-full">
+                                <Star className="h-4 w-4 mr-2" />
+                                Buy Premium
+                              </Button>
+                            </Link>
                           </CardFooter>
                         </Card>
                       </div>
