@@ -69,9 +69,9 @@ model VerificationToken {
 }
 
 model Component {
-  id            String      @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String
-  slug          String      @unique
+  slug          String          @unique
   description   String
   usageGuide    String
   previewIframe String
@@ -79,6 +79,7 @@ model Component {
   htmlCode      String?
   cssCode       String?
   jsCode        String?
+  status        ComponentStatus
   accessLevel   AccessLevel
 
   createdAt DateTime @default(now())
@@ -111,4 +112,9 @@ enum AccessLevel {
 enum Plan {
   FREE
   PAID
+}
+
+enum ComponentStatus {
+  DRAFT
+  PUBLISHED
 }
