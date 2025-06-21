@@ -1,5 +1,5 @@
 import { Trash2, Eye, Calendar, Crown, Edit } from 'lucide-react';
-import { AccessLevel, Component } from '@prisma/client';
+import { AccessLevel, Component, ComponentStatus } from '@prisma/client';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -71,6 +71,11 @@ export function ComponentCard({ component }: Readonly<ComponentCardProps>) {
               ) : (
                 'Free'
               )}
+            </Badge>
+            <Badge variant="outline">
+              {component.status === ComponentStatus.DRAFT
+                ? 'Draft'
+                : 'Published'}
             </Badge>
           </div>
         </div>

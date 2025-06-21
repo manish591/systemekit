@@ -8,14 +8,19 @@ import {
 } from '@/components/ui/card';
 import Image from 'next/image';
 import { prisma } from '@/prisma';
+import { ComponentStatus } from '@prisma/client';
 
 export default async function ComponentsPage() {
   const allComponents = await prisma.component.findMany({
+    where: {
+      status: ComponentStatus.PUBLISHED,
+    },
     select: {
       id: true,
       name: true,
       description: true,
       slug: true,
+      previewImage: true,
     },
   });
 
@@ -29,30 +34,33 @@ export default async function ComponentsPage() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {allComponents.map((tool) => {
+        {allComponents.map((component) => {
           return (
-            <Link key={tool.id} href={`/docs/components/${tool.slug}`}>
+            <Link
+              key={component.id}
+              href={`/docs/components/${component.slug}`}
+            >
               <Card className="bg-card relative h-full overflow-hidden group hover:scale-[1.02] transition-transform duration-300 hover:shadow-2xl hover:shadow-primary/10">
                 {/* Tool Image */}
                 <div className="relative h-48 overflow-hidden rounded-t-lg">
                   <Image
-                    src={`/placeholder.webp`}
+                    src={component.previewImage}
                     width={400}
                     height={200}
-                    alt={tool.name}
+                    alt={component.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
 
                 <CardHeader className="relative pb-4 pt-6">
                   <CardTitle className="text-xl font-bold leading-tight">
-                    {tool.name}
+                    {component.name}
                   </CardTitle>
                 </CardHeader>
 
                 <CardContent className="relative pt-0 pb-6">
                   <CardDescription className="text-sm leading-relaxed text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">
-                    {tool.description}
+                    {component.description}
                   </CardDescription>
 
                   {/* Hover Arrow */}

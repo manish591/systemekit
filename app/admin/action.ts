@@ -52,6 +52,7 @@ export async function createNewComponent(data: FormValues) {
       previewIframe: data.previewIframe,
       previewImage: data.previewImage,
       accessLevel: data.accessLevel,
+      status: data.status,
       usageGuide: data.usageGuide,
       cssCode: data.cssCode ?? "",
       htmlCode: data.htmlCode ?? "",

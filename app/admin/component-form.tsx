@@ -25,7 +25,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { createNewComponent } from './action';
 import { useRouter } from 'next/navigation';
-import { AccessLevel } from '@prisma/client';
+import { AccessLevel, ComponentStatus } from '@prisma/client';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -50,6 +50,9 @@ const formSchema = z.object({
   }),
   accessLevel: z.nativeEnum(AccessLevel, {
     required_error: 'Please select an access level.',
+  }),
+  status: z.nativeEnum(ComponentStatus, {
+    required_error: 'Please select component status.',
   }),
   cssCode: z.string().optional(),
   htmlCode: z.string().optional(),
@@ -79,6 +82,7 @@ export function ComponentForm({
       jsCode: '',
       usageGuide: '',
       accessLevel: undefined,
+      status: undefined,
     },
   });
 
@@ -152,16 +156,28 @@ export function ComponentForm({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
-                  name="previewIframe"
+                  name="status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Preview iFrame</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter preview iframe URL"
-                          {...field}
-                        />
-                      </FormControl>
+                      <FormLabel>Status</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select component status" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value={ComponentStatus.DRAFT}>
+                            Draft
+                          </SelectItem>
+                          <SelectItem value={ComponentStatus.PUBLISHED}>
+                            Published
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -195,13 +211,13 @@ export function ComponentForm({
 
               <FormField
                 control={form.control}
-                name="cssCode"
+                name="htmlCode"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>CSS Code</FormLabel>
+                    <FormLabel>HTML Code</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Enter CSS code"
+                        placeholder="Enter HTML code"
                         className="font-mono min-h-[120px]"
                         {...field}
                       />
@@ -213,13 +229,13 @@ export function ComponentForm({
 
               <FormField
                 control={form.control}
-                name="htmlCode"
+                name="cssCode"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>HTML Code</FormLabel>
+                    <FormLabel>CSS Code</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Enter HTML code"
+                        placeholder="Enter CSS code"
                         className="font-mono min-h-[120px]"
                         {...field}
                       />
@@ -239,6 +255,23 @@ export function ComponentForm({
                       <Textarea
                         placeholder="Enter JavaScript code"
                         className="font-mono min-h-[120px]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="previewIframe"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Preview iFrame</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter preview iframe URL"
                         {...field}
                       />
                     </FormControl>
