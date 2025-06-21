@@ -7,6 +7,6 @@ export const BASE_COMMAND_PALLETE_LINKS = [
   { name: 'Tools', href: '/docs/tools' },
   { name: 'Components', href: '/docs/components' },
   { name: 'Pricing', href: '#pricing' },
-  { name: 'Shadow Generator', href: '/docs/tools/shadow-generator' },
-  { name: 'Gradient Generator', href: '/docs/tools/gradient-generator' },
+  { name: 'Box Shadows', href: '/docs/tools/box-shadows' },
+  { name: 'Gradients', href: '/docs/tools/gradients' },
 ];
