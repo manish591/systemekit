@@ -1,7 +1,12 @@
 import { Check } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { BuyPremiumButton } from './buy-premium-button';
+import { isPremiumAccount } from '@/app/docs/components/[slug]/actions';
 
-export function Pricing() {
+export async function Pricing() {
+  const isProUser = await isPremiumAccount();
+
   return (
     <section id="pricing" className="py-24 lg:py-32">
       <div className="max-w-5xl mx-auto px-4 lg:px-0">
@@ -30,29 +35,31 @@ export function Pricing() {
               <div className="space-y-2 mb-8">
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>1 User</span>
+                  <span>Access to 20+ free components</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>5GB Storage</span>
+                  <span>Basic HTML & CSS code</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>Basic Support</span>
+                  <span>Copy & paste ready</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>Limited API Access</span>
+                  <span>Community support</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>Standard Analytics</span>
+                  <span>Regular updates</span>
                 </div>
               </div>
               <div className="pt-4 border-t border-gray-100">
-                <Button variant="outline" className="h-12 w-full font-medium">
-                  Browse Components
-                </Button>
+                <Link href="/docs/components">
+                  <Button variant="outline" className="h-12 w-full font-medium">
+                    Browse Components
+                  </Button>
+                </Link>
                 <p className="text-foreground/60 text-sm mt-6 text-center">
                   Perfect for individuals and small projects
                 </p>
@@ -69,7 +76,7 @@ export function Pricing() {
               </h2>
               <div className="mb-6 text-center">
                 <div className="justify-center flex items-center gap-x-2">
-                  <span className="text-5xl font-bold">$129</span>
+                  <span className="text-5xl font-bold">$49</span>
                 </div>
                 <div className="text-gray-500 mt-1 text-sm">
                   lifetime access
@@ -78,76 +85,76 @@ export function Pricing() {
               <div className="space-y-2 mb-8">
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>5 Users</span>
+                  <span>100+ premium components</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>50GB Storage</span>
+                  <span>Mobile-responsive designs</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>Priority Support</span>
+                  <span>Priority email support</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>Full API Access</span>
+                  <span>Lifetime updates</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>Advanced Analytics</span>
+                  <span>Exclusive pro-only components</span>
                 </div>
               </div>
               <div className="pt-4 border-t border-gray-100">
-                <Button className="w-full h-12 font-medium">Subscribe</Button>
+                <BuyPremiumButton isPremiumUser={isProUser} />
                 <p className="text-foreground/60 text-sm mt-6 text-center">
                   Ideal for growing businesses and teams
                 </p>
               </div>
             </div>
 
-            {/* Enterprise Plan */}
-            <div className="flex-1 bg-foreground rounded-3xl p-6 shadow-sm border">
-              <h2 className="text-center font-semibold text-background/60 text-lg mb-6">
-                ENTERPRISE
+            {/* Custom Development Plan */}
+            <div className="flex-1 rounded-3xl p-6 shadow-sm border">
+              <h2 className="text-center font-semibold text-lg mb-6 text-foreground/60">
+                Custom Development
               </h2>
               <div className="mb-6 text-center">
                 <div className="justify-center flex items-center gap-x-2">
-                  <span className="text-background text-5xl font-bold">
-                    $99
-                  </span>
+                  <span className="text-5xl font-bold">$500</span>
                 </div>
-                <div className="text-background/60 mt-1 text-sm">
-                  lifetime access
+                <div className="mt-1 text-sm text-foreground/60">
+                  Starting with this price
                 </div>
               </div>
-              <div className="space-y-2 mb-8 text-background">
+              <div className="space-y-2 mb-8">
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>Unlimited Users</span>
+                  <span>Fully custom Systeme.io sites</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>500GB Storage</span>
+                  <span>Unlimited revisions</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>24/7 Premium Support</span>
+                  <span>Mobile-first design</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>Custom Integrations</span>
+                  <span>30-day support included</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="text-primary" size={20} />
-                  <span>AI-Powered Insights</span>
+                  <span>SEO optimization</span>
                 </div>
               </div>
               <div className="pt-4 border-t border-gray-100">
-                <Button variant="outline" className="w-full h-12 font-medium">
-                  Subscribe
-                </Button>
-                <p className="text-background/60 text-sm mt-6 text-center">
-                  For large-scale operations and high-volume users
+                <Link href="/contact-us">
+                  <Button variant="outline" className="w-full h-12 font-medium">
+                    Contact Us
+                  </Button>
+                </Link>
+                <p className="text-foreground/60 text-sm mt-6 text-center">
+                  Ideal for fast-iterating businesses
                 </p>
               </div>
             </div>

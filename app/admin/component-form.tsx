@@ -25,7 +25,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { createNewComponent } from './action';
 import { useRouter } from 'next/navigation';
-import { Tier } from '@prisma/client';
+import { AccessLevel } from '@prisma/client';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -45,7 +45,10 @@ const formSchema = z.object({
   previewIframe: z.string().url({
     message: 'Please enter a valid URL.',
   }),
-  accessLevel: z.nativeEnum(Tier, {
+  previewImage: z.string().url({
+    message: 'Please enter a valid URL.',
+  }),
+  accessLevel: z.nativeEnum(AccessLevel, {
     required_error: 'Please select an access level.',
   }),
   cssCode: z.string().optional(),
@@ -70,11 +73,12 @@ export function ComponentForm({
       slug: '',
       description: '',
       previewIframe: '',
-      accessLevel: undefined,
+      previewImage: '',
       cssCode: '',
       htmlCode: '',
       jsCode: '',
       usageGuide: '',
+      accessLevel: undefined,
     },
   });
 
@@ -179,8 +183,8 @@ export function ComponentForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value={Tier.FREE}>Free</SelectItem>
-                          <SelectItem value={Tier.PRO}>Pro</SelectItem>
+                          <SelectItem value={AccessLevel.FREE}>Free</SelectItem>
+                          <SelectItem value={AccessLevel.PRO}>Pro</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -235,6 +239,23 @@ export function ComponentForm({
                       <Textarea
                         placeholder="Enter JavaScript code"
                         className="font-mono min-h-[120px]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="previewImage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Preview Image</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter component preview image"
                         {...field}
                       />
                     </FormControl>

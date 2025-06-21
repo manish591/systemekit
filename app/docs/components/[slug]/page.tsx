@@ -1,7 +1,7 @@
 import { CodeIcon, Eye, Lock, Star, Code } from 'lucide-react';
 import { CodeBlock } from '@/components/code-block';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { isProAccount } from './actions';
+import { isPremiumAccount } from './actions';
 import { prisma } from '@/prisma';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,7 @@ export default async function ComponentDetails({
   params: Promise<{ slug: string }>;
 }>) {
   const { slug } = await params;
-  const isPremiumUser = await isProAccount();
+  const isProUser = await isPremiumAccount();
 
   const componentData = await prisma.component.findUnique({
     where: {
@@ -34,9 +34,9 @@ export default async function ComponentDetails({
       slug: true,
       previewIframe: true,
       usageGuide: true,
-      htmlCode: isPremiumUser,
-      cssCode: isPremiumUser,
-      jsCode: isPremiumUser,
+      htmlCode: isProUser,
+      cssCode: isProUser,
+      jsCode: isProUser,
     },
   });
 
@@ -91,7 +91,7 @@ export default async function ComponentDetails({
             </div>
           </TabsContent>
           <TabsContent value="code" className="w-full rounded-lg">
-            {isPremiumUser ? (
+            {isProUser ? (
               <div className="rounded-lg">
                 <CodeBlock code={componentCode} language="html" />
               </div>

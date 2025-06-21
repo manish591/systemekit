@@ -1,5 +1,5 @@
 import { Trash2, Eye, Calendar, Crown, Edit } from 'lucide-react';
-import { Component } from '@prisma/client';
+import { AccessLevel, Component } from '@prisma/client';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -52,14 +52,18 @@ export function ComponentCard({ component }: Readonly<ComponentCardProps>) {
           </div>
           <div className="flex gap-2 ml-2">
             <Badge
-              variant={component.accessLevel === 'PRO' ? 'default' : 'outline'}
+              variant={
+                component.accessLevel === AccessLevel.PRO
+                  ? 'default'
+                  : 'outline'
+              }
               className={
-                component.accessLevel === 'PRO'
+                component.accessLevel === AccessLevel.PRO
                   ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-0'
                   : 'text-green-700 border-green-200 bg-green-50'
               }
             >
-              {component.accessLevel === 'PRO' ? (
+              {component.accessLevel === AccessLevel.PRO ? (
                 <>
                   <Crown className="h-3 w-3 mr-1" />
                   Premium

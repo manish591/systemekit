@@ -50,11 +50,12 @@ export async function createNewComponent(data: FormValues) {
       slug: data.slug,
       description: data.description,
       previewIframe: data.previewIframe,
+      previewImage: data.previewImage,
       accessLevel: data.accessLevel,
+      usageGuide: data.usageGuide,
       cssCode: data.cssCode ?? "",
       htmlCode: data.htmlCode ?? "",
       jsCode: data.jsCode ?? "",
-      usageGuide: data.usageGuide ?? "",
     }
   });
 }
