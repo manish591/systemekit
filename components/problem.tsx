@@ -16,7 +16,7 @@ export function Problem() {
         </h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-        <Card className="relative shadow-none border-0">
+        <Card className="relative shadow-none border-0 bg-transparent">
           <CardContent className="p-0">
             <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-4">
               <PenTool className="w-6 h-6 text-foreground/60" />
@@ -31,7 +31,7 @@ export function Problem() {
             </p>
           </CardContent>
         </Card>
-        <Card className="relative shadow-none border-0">
+        <Card className="relative shadow-none border-0 bg-transparent">
           <CardContent className="p-0">
             <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-4">
               <Hourglass className="w-6 h-6 text-foreground/60" />
@@ -46,7 +46,7 @@ export function Problem() {
             </p>
           </CardContent>
         </Card>
-        <Card className="relative shadow-none border-0">
+        <Card className="relative shadow-none border-0 bg-transparent">
           <CardContent className="p-0">
             <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-4">
               <ChartNoAxesCombined className="w-6 h-6 text-foreground/60" />

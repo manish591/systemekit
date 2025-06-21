@@ -43,17 +43,35 @@ export async function Navbar() {
       <div className="px-4 md:px-8 max-w-[1300px] flex mx-auto h-16 items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-foreground/90 hover:text-foreground transition-colors duration-200">
               <CodeXml className="w-6 h-6 mt-[2px]" strokeWidth={3} />
               <span className="text-lg font-bold">Systemekit</span>
             </div>
           </Link>
           <div className="flex items-center gap-6 font-medium text-foreground/60 text-sm">
-            <Link href="/docs/getting-started/introduction">Docs</Link>
-            <Link href="/docs/tools">Tools</Link>
-            <Link href="#pricing">Pricing</Link>
+            <Link
+              href="/docs/getting-started/introduction"
+              className="hover:text-foreground transition-colors duration-200"
+            >
+              Docs
+            </Link>
+            <Link
+              href="/docs/tools"
+              className="hover:text-foreground transition-colors duration-200"
+            >
+              Tools
+            </Link>
+            <Link
+              href="#pricing"
+              className="hover:text-foreground transition-colors duration-200"
+            >
+              Pricing
+            </Link>
             {isAdmin && (
-              <Link href="/admin" className="flex items-center gap-1">
+              <Link
+                href="/admin"
+                className="flex items-center gap-1 hover:text-foreground transition-colors duration-200"
+              >
                 Admin
               </Link>
             )}

@@ -3,7 +3,7 @@ import { CodeXml, Youtube } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer id="footer" className="bg-accent dark:bg-accent/40">
+    <footer id="footer" className="bg-accent/40 dark:bg-accent/30">
       <div className="max-w-[1300px] mx-auto px-4 md:px-8 pt-16 pb-4">
         <Link href="/" className="flex items-center space-x-2">
           <div className="flex items-center gap-2">

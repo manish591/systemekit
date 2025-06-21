@@ -20,7 +20,7 @@ export async function Pricing() {
         </div>
         <div className="flex items-center justify-center">
           <div className="flex flex-col md:flex-row gap-2 max-w-6xl w-full">
-            <div className="flex-1 rounded-3xl p-6 shadow-sm border">
+            <div className="flex-1 rounded-3xl p-6 shadow-sm border bg-card">
               <h2 className="text-center font-semibold text-foreground/60 text-lg mb-6">
                 BASIC
               </h2>
@@ -54,7 +54,7 @@ export async function Pricing() {
                   <span>Regular updates</span>
                 </div>
               </div>
-              <div className="pt-4 border-t border-gray-100">
+              <div className="pt-4 border-t">
                 <Link href="/docs/components">
                   <Button variant="outline" className="h-12 w-full font-medium">
                     Browse Components
@@ -104,7 +104,7 @@ export async function Pricing() {
                   <span>Exclusive pro-only components</span>
                 </div>
               </div>
-              <div className="pt-4 border-t border-gray-100">
+              <div className="pt-4 border-t">
                 <BuyPremiumButton isPremiumUser={isProUser} />
                 <p className="text-foreground/60 text-sm mt-6 text-center">
                   Ideal for growing businesses and teams
@@ -113,7 +113,7 @@ export async function Pricing() {
             </div>
 
             {/* Custom Development Plan */}
-            <div className="flex-1 rounded-3xl p-6 shadow-sm border">
+            <div className="flex-1 rounded-3xl p-6 shadow-sm border bg-card">
               <h2 className="text-center font-semibold text-lg mb-6 text-foreground/60">
                 Custom Development
               </h2>
@@ -147,7 +147,7 @@ export async function Pricing() {
                   <span>SEO optimization</span>
                 </div>
               </div>
-              <div className="pt-4 border-t border-gray-100">
+              <div className="pt-4 border-t">
                 <Link href="/contact-us">
                   <Button variant="outline" className="w-full h-12 font-medium">
                     Contact Us

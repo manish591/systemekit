@@ -5,7 +5,7 @@ export function Solution() {
   return (
     <section
       id="solutions"
-      className="bg-accent dark:bg-accent/40 py-24 md:py-32"
+      className="bg-accent/40 dark:bg-accent/30 py-24 md:py-32"
     >
       <div className="max-w-5xl mx-auto px-4">
         <div className="text-center mb-20">
