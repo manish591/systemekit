@@ -32,7 +32,7 @@ export default async function ComponentsPage() {
         {allComponents.map((tool) => {
           return (
             <Link key={tool.id} href={`/docs/components/${tool.slug}`}>
-              <Card className="relative h-full overflow-hidden group hover:scale-[1.02] transition-transform duration-300 hover:shadow-2xl hover:shadow-primary/10">
+              <Card className="bg-card relative h-full overflow-hidden group hover:scale-[1.02] transition-transform duration-300 hover:shadow-2xl hover:shadow-primary/10">
                 {/* Tool Image */}
                 <div className="relative h-48 overflow-hidden rounded-t-lg">
                   <Image
