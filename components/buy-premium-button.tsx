@@ -27,7 +27,7 @@ export function BuyPremiumButton({
         <Button
           className="w-full h-12 font-medium"
           onClick={() => {
-            window.location.href = `https://test.checkout.dodopayments.com/buy/${productId}?quantity=1&redirect_url=${redirectUrl}/payment-status`;
+            window.location.href = `https://test.checkout.dodopayments.com/buy/${productId}?quantity=1&redirect_url=${redirectUrl}/account/billing`;
           }}
         >
           Buy Premium

@@ -44,8 +44,11 @@ export async function Navbar() {
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center space-x-2">
             <div className="flex items-center gap-2 text-foreground/90 hover:text-foreground transition-colors duration-200">
-              <CodeXml className="w-6 h-6 mt-[2px]" strokeWidth={3} />
-              <span className="text-lg font-bold">Systemekit</span>
+              <CodeXml
+                className="w-6 h-6 mt-[4px] bg-foreground text-background rounded-md p-[4px]"
+                strokeWidth={3}
+              />
+              <span className="text-xl font-bold">Systemekit</span>
             </div>
           </Link>
           <div className="flex items-center gap-6 font-medium text-foreground/60 text-sm">
@@ -108,7 +111,12 @@ export async function Navbar() {
                   My Account
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/account/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/account/billing">Billing</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <SignOutButton />
                 </DropdownMenuItem>

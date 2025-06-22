@@ -89,8 +89,6 @@ model Component {
 model Payment {
   id        String @id @default(uuid())
   userId    String @unique
-  currency  String
-  amount    Float
   paymentId String
 
   user User @relation(fields: [userId], references: [id])
