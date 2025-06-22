@@ -16,5 +16,9 @@ export async function isPremiumAccount() {
     where: { id: userId },
   });
 
-  return user?.plan === Plan.PAID;
+  if (!user) {
+    return false;
+  }
+
+  return user.plan === Plan.PAID;
 }

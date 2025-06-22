@@ -3,8 +3,11 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { BuyPremiumButton } from './buy-premium-button';
 import { isPremiumAccount } from '@/app/docs/components/[slug]/actions';
+import { auth } from '@/auth';
 
 export async function Pricing() {
+  const session = await auth();
+  const isLoggedIn = !!session?.user;
   const isProUser = await isPremiumAccount();
 
   return (
@@ -105,7 +108,10 @@ export async function Pricing() {
                 </div>
               </div>
               <div className="pt-4 border-t">
-                <BuyPremiumButton isPremiumUser={isProUser} />
+                <BuyPremiumButton
+                  isPremiumUser={isProUser}
+                  isLoggedIn={isLoggedIn}
+                />
                 <p className="text-foreground/60 text-sm mt-6 text-center">
                   Ideal for growing businesses and teams
                 </p>
