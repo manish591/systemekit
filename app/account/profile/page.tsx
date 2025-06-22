@@ -1,6 +1,6 @@
-import { Mail, Phone, User } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { User } from 'lucide-react';
+import { auth } from '@/auth';
+import { prisma } from '@/prisma';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Card,
@@ -9,10 +9,24 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { auth } from '@/auth';
 
 export default async function Profile() {
   const session = await auth();
+  const userId = session?.user?.id as string;
+  const userData = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!userData) {
+    throw new Error('Profile data not found');
+  }
+
+  const userName = userData.name ?? '';
+  const nameSplit = userName.split(' ');
+  const firstName = nameSplit[0];
+  const lastName = nameSplit.length > 1 ? nameSplit[1] : '';
 
   return (
     <>
@@ -44,45 +58,33 @@ export default async function Profile() {
             <div className="space-y-1">
               <h3 className="text-lg font-semibold">{session?.user?.name}</h3>
               <p className="text-sm text-foregroud/60">
-                {session?.user?.email}
+                Member Since: {userData?.createdAt.toLocaleDateString()}
               </p>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <div className="space-y-2">
-              <Label htmlFor="firstName">First Name</Label>
-              <Input
-                id="firstName"
-                defaultValue="John"
-                className={'bg-muted'}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Last Name</Label>
-              <Input id="lastName" defaultValue="Doe" className="bg-muted" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="email"
-                  type="email"
-                  defaultValue="john.doe@example.com"
-                  className="bg-muted"
-                />
+              <p className="font-semibold text-sm">First Name</p>
+              <div className="bg-accent/60 border px-3 py-2 rounded-md text-sm">
+                {firstName}
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="phone"
-                  defaultValue="+1 (555) 123-4567"
-                  className="bg-muted"
-                />
+              <p className="font-semibold text-sm">Last Name</p>
+              <div className="bg-accent/60 border px-3 py-2 rounded-md text-sm">
+                {lastName}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <p className="font-semibold text-sm">Email</p>
+              <div className="bg-accent/60 border px-3 py-2 rounded-md text-sm">
+                {userData.email}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <p className="font-semibold text-sm">Plan</p>
+              <div className="bg-accent/60 border px-3 py-2 rounded-md text-sm">
+                {userData.plan}
               </div>
             </div>
           </div>

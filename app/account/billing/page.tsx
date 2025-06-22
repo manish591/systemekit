@@ -1,6 +1,5 @@
 import { Download, Calendar, DollarSign, User2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
@@ -9,8 +8,28 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { auth } from '@/auth';
+import { prisma } from '@/prisma';
+import { Plan } from '@prisma/client';
+import Link from 'next/link';
+import { RefreshDatabaseButton } from './refresh-db-button';
 
-export default function Billing() {
+export default async function Billing() {
+  const session = await auth();
+  const userId = session?.user?.id as string;
+  const userData = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: {
+      payment: true,
+    },
+  });
+
+  if (!userData) {
+    throw new Error('Profile data not found');
+  }
+
   return (
     <>
       <div className="flex items-center justify-between mt-[-4px] mb-6">
@@ -32,20 +51,34 @@ export default function Billing() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
-            <div>
+            {userData.plan === Plan.FREE ? (
+              <div className="flex items-center gap-3 p-3 border rounded-lg">
+                <DollarSign className="h-5 w-5" />
+                <div className="flex-1">
+                  <p className="font-medium">Free Account</p>
+                  <p className="text-sm text-muted-foreground">
+                    Member Since • {userData.createdAt.toLocaleDateString()}
+                  </p>
+                </div>
+                <Link href="/#pricing">
+                  <Button>Buy Premium</Button>
+                </Link>
+              </div>
+            ) : (
               <div className="flex items-center gap-3 p-3 border rounded-lg">
                 <DollarSign className="h-5 w-5" />
                 <div className="flex-1">
                   <p className="font-medium">Premium Account</p>
                   <p className="text-sm text-muted-foreground">
-                    Lifetime access • Purchased on Jan 15, 2024
+                    Lifetime access • Purchased on{' '}
+                    {userData.payment?.createdAt.toLocaleDateString()}
                   </p>
                 </div>
-                <Badge variant="default" className="bg-green-600">
+                <Badge variant="default" className="bg-green-300">
                   Active
                 </Badge>
               </div>
-            </div>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -61,24 +94,22 @@ export default function Billing() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div>
+          {userData.payment ? (
+            <div className="space-y-4">
               <div className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-4">
                   <div className="space-y-1">
-                    <p className="font-medium">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Nisi, eos?
-                    </p>
+                    <p className="font-medium">Systemekit Premium Membership</p>
                     <p className="text-sm text-muted-foreground">
-                      21st June, 2025 • xvr4f5edjs8
+                      {userData.payment.createdAt.toLocaleDateString()} •{' '}
+                      {userData.payment.paymentId}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="text-right">
+                  <div className="text-right flex items-center gap-2">
                     <p className="font-medium">$49</p>
-                    <Badge variant="default" className="text-xs">
+                    <Badge variant="secondary" className="text-xs">
                       Paid
                     </Badge>
                   </div>
@@ -92,9 +123,13 @@ export default function Billing() {
                   </Button>
                 </div>
               </div>
-              <Separator />
             </div>
-          </div>
+          ) : (
+            <div className="py-8 text-center">
+              <h3 className="font-semibold mb-2">Data Not found!</h3>
+              <RefreshDatabaseButton />
+            </div>
+          )}
         </CardContent>
       </Card>
     </>
