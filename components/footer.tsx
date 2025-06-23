@@ -51,14 +51,14 @@ export function Footer() {
             <h2 className="font-semibold text-foreground mb-4">Social</h2>
             <ul className="flex gap-4 md:flex-col">
               <li>
-                <a
+                <Link
                   href="https://www.youtube.com/@gauravlakheraofficial"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/60 hover:text-foreground flex items-center text-sm"
+                  className="text-foreground/60 hover:text-foreground w-max flex items-center text-sm"
                 >
                   <Youtube className="w-5 h-5 mr-2" /> YouTube
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
