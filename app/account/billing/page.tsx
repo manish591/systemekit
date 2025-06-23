@@ -13,6 +13,7 @@ import { prisma } from '@/prisma';
 import { Plan } from '@prisma/client';
 import Link from 'next/link';
 import { RefreshDatabaseButton } from './refresh-db-button';
+import { PaymentStatusBadge } from './payment-status-badge';
 
 export default async function Billing() {
   const session = await auth();
@@ -115,21 +116,7 @@ export default async function Billing() {
                     <div className="flex items-center gap-4">
                       <div className="text-right flex items-center gap-2">
                         <p className="font-medium">$49</p>
-                        {pay.status === 'SUCCESS' ? (
-                          <Badge
-                            variant="default"
-                            className="bg-green-200 text-xs pointer-events-none"
-                          >
-                            Success
-                          </Badge>
-                        ) : (
-                          <Badge
-                            variant="destructive"
-                            className="text-xs pointer-events-none"
-                          >
-                            Failed
-                          </Badge>
-                        )}
+                        <PaymentStatusBadge status={pay.status} />
                       </div>
                     </div>
                   </div>
