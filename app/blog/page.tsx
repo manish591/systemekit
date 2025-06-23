@@ -1,12 +1,21 @@
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
+
 export default function BlogPage() {
   return (
-    <div className="max-w-[1300px] mx-auto px-4 md:px-8 pt-16 pb-4">
-      <h1 className="text-3xl font-bold mb-6">Blog</h1>
-      <p className="text-lg text-foreground/70 mb-8">
-        Welcome to our blog! Here you will find the latest updates, tutorials,
-        and insights on web development.
-      </p>
-      {/* Add your blog content here */}
-    </div>
+    <main className="flex flex-col min-h-[100vh]">
+      <Navbar />
+      <div className="flex-1 max-w-[1300px] mx-auto w-full px-4 md:px-8 pt-4 pb-24">
+        <div className="mb-8">
+          <h1 className="text-xl font-medium text-foreground">Blogs</h1>
+          <p className="text-foreground/60 text-sm">
+            We will provide quick tips for systeme.io
+          </p>
+        </div>
+      </div>
+      <div className="mt-auto">
+        <Footer />
+      </div>
+    </main>
   );
 }
