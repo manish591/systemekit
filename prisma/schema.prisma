@@ -102,6 +102,8 @@ model Payment {
 enum PaymentStatus {
   FAILED
   SUCCESS
+  PROCESSING
+  CANCELLED
 }
 
 enum Role {
