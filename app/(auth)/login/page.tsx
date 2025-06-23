@@ -55,10 +55,11 @@ export default function Login() {
                     id="email"
                     type="email"
                     placeholder="m@example.com"
+                    disabled
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" disabled className="w-full">
                   Login
                 </Button>
               </div>
