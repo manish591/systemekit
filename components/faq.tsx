@@ -3,21 +3,57 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-export const faqItems = [
-  'What is acme.ai?',
-  'How can I get started with acme.ai?',
-  'What types of AI models does acme.ai support?',
-  'Is acme.ai suitable for beginners in AI development?',
-  'What kind of support does acme.ai provide?',
+const faqItems = [
+  {
+    question: 'How do I use these components in Systeme.io?',
+    answer:
+      'Each component comes with clean HTML and CSS. Simply copy the HTML code and paste it into a custom code block inside Systeme.io’s page builder. For CSS, use the global style section in your page settings.',
+  },
+  {
+    question: 'Can I customize the components to match my brand?',
+    answer:
+      'Yes! All components use utility-friendly class names so you can easily change colors, spacing, fonts, and layout. You can edit the styles directly or override them in your global CSS.',
+  },
+  {
+    question: 'Will these components work on all Systeme.io plans?',
+    answer:
+      "Most components work on all plans, but custom CSS might be limited on the Free plan. If you're using advanced components, make sure your plan allows custom code injection.",
+  },
+  {
+    question: 'Do I need to know how to code?',
+    answer:
+      'Not much! You only need to copy and paste the provided HTML/CSS. However, basic knowledge of how to edit code blocks in Systeme.io will help with customization.',
+  },
+  {
+    question: 'Are these components mobile responsive?',
+    answer:
+      'Yes! All components are built with responsiveness in mind using Tailwind-inspired utility classes. They look great on desktops, tablets, and mobile devices.',
+  },
+  {
+    question: 'Can I request or suggest new components?',
+    answer:
+      "Absolutely. You can reach out via GitHub, email, or the suggestion form to share ideas for new components you'd like to see added.",
+  },
+  {
+    question: 'Is JavaScript required for these components?',
+    answer:
+      'Yes. Few components uses javascript. But the javascript will be provided.',
+  },
 ];
 
 interface FAQItemProps {
   question: string;
+  answer: string;
   isOpen: boolean;
   onClick: () => void;
 }
 
-function FAQItem({ question, isOpen, onClick }: Readonly<FAQItemProps>) {
+function FAQItem({
+  question,
+  answer,
+  isOpen,
+  onClick,
+}: Readonly<FAQItemProps>) {
   return (
     <div className="border rounded-lg mb-4">
       <button
@@ -33,11 +69,7 @@ function FAQItem({ question, isOpen, onClick }: Readonly<FAQItemProps>) {
       </button>
       {isOpen && (
         <div className="px-6 pb-6">
-          <p className="text-foreground/60">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor,
-            eveniet accusantium necessitatibus velit mollitia illum ab veniam,
-            eum odit error, ipsam quis aperiam
-          </p>
+          <p className="text-foreground/60">{answer}</p>
         </div>
       )}
     </div>
@@ -59,15 +91,16 @@ export function Faq() {
         </div>
         <div className="flex flex-col items-center py-12 md:px-20">
           <div className="w-full max-w-2xl">
-            {faqItems.map((question, index) => (
+            {faqItems.map((faq, index) => (
               <FAQItem
-                key={question}
-                question={question}
+                key={faq.question}
+                question={faq.question}
+                answer={faq.answer}
                 isOpen={openItem === index}
                 onClick={() => setOpenItem(openItem === index ? null : index)}
               />
             ))}
-            <p className="text-center mt-8 text-foreground/60">
+            {/* <p className="text-center mt-8 text-foreground/60">
               Still have questions? Email us at{' '}
               <a
                 href="mailto:support@acme.ai"
@@ -75,7 +108,7 @@ export function Faq() {
               >
                 support@acme.ai
               </a>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
