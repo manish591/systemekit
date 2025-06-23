@@ -14,7 +14,6 @@ interface VideoPlayerProps {
 }
 
 export function VideoPlayer({
-  videoId,
   thumbnailUrl,
   title,
 }: Readonly<VideoPlayerProps>) {
@@ -34,7 +33,7 @@ export function VideoPlayer({
             alt={title}
             width={400}
             height={500}
-            className="w-full h-full object-cover duration-200 transtion-all group-hover:brightness-[0.7]"
+            className="w-full h-full blur-sm object-cover duration-200 transtion-all group-hover:brightness-[0.7]"
           />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="rounded-full bg-red-500 p-4 shadow-lg transition-transform duration-300 group-hover:scale-110">
@@ -66,7 +65,7 @@ export function VideoPlayer({
                 title="video explainer"
                 width="100%"
                 height="100%"
-                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                src="https://www.loom.com/embed/fd24c5d9728a4b6db175bf890f8d3227?sid=98bebdb2-bbfc-43f9-a0d7-5f1610118b2b"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 rounded-lg"

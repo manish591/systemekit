@@ -73,7 +73,7 @@ export function Hero() {
         <div className="border shadow-lg p-2.5 rounded-lg mt-16 max-w-5xl mx-auto">
           <VideoPlayer
             videoId="dQw4w9WgXcQ"
-            thumbnailUrl="/placeholder.webp"
+            thumbnailUrl="https://res.cloudinary.com/dcugqfvvg/image/upload/v1750719298/Screenshot_2025-06-24_042401_bdxasa.png"
             title="how ghlcn works"
           />
         </div>
