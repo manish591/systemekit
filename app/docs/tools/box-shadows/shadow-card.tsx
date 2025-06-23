@@ -16,7 +16,7 @@ export function ShadowCard({ boxShadow }: Readonly<{ boxShadow: TBoxShadow }>) {
   return (
     <div
       className={cn(
-        'group relative h-44 bg-background rounded-md overflow-hidden',
+        'group relative h-44 bg-background rounded-md overflow-hidden dark:border',
         boxShadow.tailwind,
       )}
     >
