@@ -1,4 +1,4 @@
-import { Download, Calendar, DollarSign, User2 } from 'lucide-react';
+import { Calendar, DollarSign, User2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -71,11 +71,11 @@ export default async function Billing() {
                   <p className="font-medium">Premium Account</p>
                   <p className="text-sm text-muted-foreground">
                     Lifetime access • Purchased on{' '}
-                    {userData.payment?.createdAt.toLocaleDateString()}
+                    {userData.payment[0].createdAt.toLocaleDateString()}
                   </p>
                 </div>
-                <Badge variant="default" className="bg-green-300">
-                  Active
+                <Badge variant="default" className="bg-primary text-black">
+                  Premium
                 </Badge>
               </div>
             )}
@@ -94,35 +94,47 @@ export default async function Billing() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {userData.payment ? (
+          {userData.payment.length > 0 ? (
             <div className="space-y-4">
-              <div className="flex items-center justify-between py-3">
-                <div className="flex items-center gap-4">
-                  <div className="space-y-1">
-                    <p className="font-medium">Systemekit Premium Membership</p>
-                    <p className="text-sm text-muted-foreground">
-                      {userData.payment.createdAt.toLocaleDateString()} •{' '}
-                      {userData.payment.paymentId}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="text-right flex items-center gap-2">
-                    <p className="font-medium">$49</p>
-                    <Badge variant="secondary" className="text-xs">
-                      Paid
-                    </Badge>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="bg-white text-black"
+              {userData.payment.map((pay) => {
+                return (
+                  <div
+                    key={pay.id}
+                    className="hover:bg-secondary border px-4 rounded-md flex items-center justify-between py-3"
                   >
-                    <Download className="h-4 w-4 mr-2" />
-                    Receipt
-                  </Button>
-                </div>
-              </div>
+                    <div className="flex items-center gap-4">
+                      <div className="space-y-1">
+                        <p className="font-medium">
+                          Systemekit Premium Membership
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {pay.createdAt.toLocaleDateString()} • {pay.paymentId}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-right flex items-center gap-2">
+                        <p className="font-medium">$49</p>
+                        {pay.status === 'SUCCESS' ? (
+                          <Badge
+                            variant="default"
+                            className="bg-green-200 text-xs pointer-events-none"
+                          >
+                            Success
+                          </Badge>
+                        ) : (
+                          <Badge
+                            variant="destructive"
+                            className="text-xs pointer-events-none"
+                          >
+                            Failed
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <div className="py-8 text-center">
