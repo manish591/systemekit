@@ -1,9 +1,7 @@
 import { CodeIcon, Eye, Lock, Star, Code } from 'lucide-react';
 import { CodeBlock } from '@/components/code-block';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { isPremiumAccount } from './actions';
-import { prisma } from '@/prisma';
-import { notFound } from 'next/navigation';
+import { getComponentsData, isPremiumAccount } from './actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -16,6 +14,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { isUserAdmin } from '@/app/admin/action';
+import { AccessLevel } from '@prisma/client';
 
 export default async function ComponentDetails({
   params,
@@ -25,28 +24,7 @@ export default async function ComponentDetails({
   const { slug } = await params;
   const isProUser = await isPremiumAccount();
   const isAdmin = await isUserAdmin();
-
-  const componentData = await prisma.component.findUnique({
-    where: {
-      slug,
-    },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      slug: true,
-      previewIframe: true,
-      usageGuide: true,
-
-      htmlCode: isProUser || isAdmin,
-      cssCode: isProUser || isAdmin,
-      jsCode: isProUser || isAdmin,
-    },
-  });
-
-  if (!componentData) {
-    return notFound();
-  }
+  const componentData = await getComponentsData(slug);
 
   function constructComponentCode() {
     let componentCode = '';
@@ -109,32 +87,40 @@ export default async function ComponentDetails({
             </div>
           </TabsContent>
           <TabsContent value="code" className="w-full rounded-lg">
-            {isProUser || isAdmin ? (
+            {componentData.accessLevel === AccessLevel.FREE ? (
               <div className="rounded-lg">
                 <CodeBlock code={constructComponentCode()} language="html" />
               </div>
             ) : (
-              <div className="space-y-6">
-                {/* Locked Premium Content */}
-                <Card className="relative overflow-hidden">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Code className="h-5 w-5" />
-                      {componentData.name}
-                      <Badge variant="secondary" className="ml-auto">
-                        <Star className="h-3 w-3 mr-1" />
-                        Premium
-                      </Badge>
-                    </CardTitle>
-                    <CardDescription className="max-w-[500px] truncate">
-                      {componentData.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="relative">
-                      <div className="bg-muted p-4 rounded-lg blur-sm select-none">
-                        <pre className="text-sm">
-                          {`// Advanced React Hook Pattern
+              <>
+                {isAdmin || isProUser ? (
+                  <div className="rounded-lg">
+                    <CodeBlock
+                      code={constructComponentCode()}
+                      language="html"
+                    />
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    <Card className="relative overflow-hidden">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Code className="h-5 w-5" />
+                          {componentData.name}
+                          <Badge variant="secondary" className="ml-auto">
+                            <Star className="h-3 w-3 mr-1" />
+                            Premium
+                          </Badge>
+                        </CardTitle>
+                        <CardDescription className="max-w-[500px] truncate">
+                          {componentData.description}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="relative">
+                          <div className="bg-muted p-4 rounded-lg blur-sm select-none">
+                            <pre className="text-sm">
+                              {`// Advanced React Hook Pattern
 import { useState, useEffect, useCallback } from 'react';
 
 const useAdvancedState = (initialValue) => {
@@ -153,34 +139,36 @@ const useAdvancedState = (initialValue) => {
 };
 
 export default useAdvancedState;`}
-                        </pre>
-                      </div>
-                      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
-                        <Card className="w-full max-w-md mx-4">
-                          <CardHeader className="text-center">
-                            <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
-                              <Lock className="h-6 w-6 text-primary" />
-                            </div>
-                            <CardTitle>Premium Content</CardTitle>
-                            <CardDescription>
-                              Upgrade to Premium to access advanced code
-                              examples and tutorials
-                            </CardDescription>
-                          </CardHeader>
-                          <CardFooter>
-                            <Link href="/#pricing" className="mx-auto">
-                              <Button className="w-full">
-                                <Star className="h-4 w-4 mr-2" />
-                                Buy Premium
-                              </Button>
-                            </Link>
-                          </CardFooter>
-                        </Card>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                            </pre>
+                          </div>
+                          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+                            <Card className="w-full max-w-md mx-4">
+                              <CardHeader className="text-center">
+                                <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                                  <Lock className="h-6 w-6 text-primary" />
+                                </div>
+                                <CardTitle>Premium Content</CardTitle>
+                                <CardDescription>
+                                  Upgrade to Premium to access advanced code
+                                  examples and tutorials
+                                </CardDescription>
+                              </CardHeader>
+                              <CardFooter>
+                                <Link href="/#pricing" className="mx-auto">
+                                  <Button className="w-full">
+                                    <Star className="h-4 w-4 mr-2" />
+                                    Buy Premium
+                                  </Button>
+                                </Link>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )}
+              </>
             )}
           </TabsContent>
         </Tabs>
