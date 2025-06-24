@@ -58,7 +58,10 @@ export default async function Profile() {
             <div className="space-y-1">
               <h3 className="text-lg font-semibold">{session?.user?.name}</h3>
               <p className="text-sm text-foregroud/60">
-                Member Since: {userData?.createdAt.toLocaleDateString()}
+                <span className="capitalize">
+                  {userData.role.toLowerCase()}
+                </span>{' '}
+                Since: {userData?.createdAt.toLocaleDateString()}
               </p>
             </div>
           </div>
@@ -83,8 +86,8 @@ export default async function Profile() {
             </div>
             <div className="space-y-2">
               <p className="font-semibold text-sm">Plan</p>
-              <div className="bg-accent/60 border px-3 py-2 rounded-md text-sm">
-                {userData.plan}
+              <div className="bg-accent/60 border px-3 py-2 rounded-md text-sm capitalize">
+                {userData.plan.toLowerCase()}
               </div>
             </div>
           </div>

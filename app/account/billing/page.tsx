@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/card';
 import { auth } from '@/auth';
 import { prisma } from '@/prisma';
-import { Plan } from '@prisma/client';
+import { Plan, Role } from '@prisma/client';
 import Link from 'next/link';
 import { RefreshDatabaseButton } from './refresh-db-button';
 import { PaymentStatusBadge } from './payment-status-badge';
@@ -58,12 +58,21 @@ export default async function Billing() {
                 <div className="flex-1">
                   <p className="font-medium">Free Account</p>
                   <p className="text-sm text-muted-foreground">
-                    Member Since • {userData.createdAt.toLocaleDateString()}
+                    <span className="capitalize">
+                      {userData.role.toLowerCase()}
+                    </span>{' '}
+                    Since • {userData.createdAt.toLocaleDateString()}
                   </p>
                 </div>
-                <Link href="/#pricing">
-                  <Button>Buy Premium</Button>
-                </Link>
+                {userData.role === Role.ADMIN ? (
+                  <Link href="/docs/components">
+                    <Button>Browse Components</Button>
+                  </Link>
+                ) : (
+                  <Link href="/#pricing">
+                    <Button>Buy Premium</Button>
+                  </Link>
+                )}
               </div>
             ) : (
               <div className="flex items-center gap-3 p-3 border rounded-lg">

@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import { isUserAdmin } from '@/app/admin/action';
 
 export default async function ComponentDetails({
   params,
@@ -23,6 +24,7 @@ export default async function ComponentDetails({
 }>) {
   const { slug } = await params;
   const isProUser = await isPremiumAccount();
+  const isAdmin = await isUserAdmin();
 
   const componentData = await prisma.component.findUnique({
     where: {
@@ -92,7 +94,7 @@ export default async function ComponentDetails({
             </div>
           </TabsContent>
           <TabsContent value="code" className="w-full rounded-lg">
-            {isProUser ? (
+            {isProUser || isAdmin ? (
               <div className="rounded-lg">
                 <CodeBlock code={componentCode} language="html" />
               </div>

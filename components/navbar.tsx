@@ -65,7 +65,7 @@ export async function Navbar() {
               Tools
             </Link>
             <Link
-              href="#pricing"
+              href="/#pricing"
               className="hover:text-foreground transition-colors duration-200"
             >
               Pricing
