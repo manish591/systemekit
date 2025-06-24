@@ -37,9 +37,9 @@ export default async function ComponentDetails({
       slug: true,
       previewIframe: true,
       usageGuide: true,
-      htmlCode: isProUser,
-      cssCode: isProUser,
-      jsCode: isProUser,
+      htmlCode: isProUser || isAdmin,
+      cssCode: isProUser || isAdmin,
+      jsCode: isProUser || isAdmin,
     },
   });
 
@@ -47,9 +47,23 @@ export default async function ComponentDetails({
     return notFound();
   }
 
-  const componentCode = `${componentData.htmlCode ?? ''}\n\n<style>\n${
-    componentData.cssCode ?? ''
-  }\n</style>\n\n${componentData.jsCode ?? ''}`;
+  function constructComponentCode() {
+    let componentCode = '';
+
+    if (componentData?.htmlCode) {
+      componentCode += componentData.htmlCode;
+    }
+
+    if (componentData?.cssCode) {
+      componentCode += `\n\n<style>\n${componentData.cssCode}\n</style>`;
+    }
+
+    if (componentData?.jsCode) {
+      componentCode += `\n\n<script>\n${componentData.jsCode}\n</script>`;
+    }
+
+    return componentCode;
+  }
 
   return (
     <main className="max-w-6xl">
@@ -84,7 +98,7 @@ export default async function ComponentDetails({
           <TabsContent value="preview" className="w-full">
             <div className="rounded-lg border p-4">
               <iframe
-                src={componentData.previewIframe!}
+                src={componentData.previewIframe}
                 width="100%"
                 height="400"
                 className="border-none rounded-lg"
@@ -96,7 +110,7 @@ export default async function ComponentDetails({
           <TabsContent value="code" className="w-full rounded-lg">
             {isProUser || isAdmin ? (
               <div className="rounded-lg">
-                <CodeBlock code={componentCode} language="html" />
+                <CodeBlock code={constructComponentCode()} language="html" />
               </div>
             ) : (
               <div className="space-y-6">
