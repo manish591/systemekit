@@ -4,11 +4,13 @@ import Link from 'next/link';
 import { BuyPremiumButton } from './buy-premium-button';
 import { isPremiumAccount } from '@/app/docs/components/[slug]/actions';
 import { auth } from '@/auth';
+import { isUserAdmin } from '@/app/admin/action';
 
 export async function Pricing() {
   const session = await auth();
   const isLoggedIn = !!session?.user;
   const isProUser = await isPremiumAccount();
+  const isAdmin = await isUserAdmin();
 
   return (
     <section id="pricing" className="py-24 lg:py-32">
@@ -109,6 +111,7 @@ export async function Pricing() {
               </div>
               <div className="pt-4 border-t">
                 <BuyPremiumButton
+                  isAdmin={isAdmin}
                   isPremiumUser={isProUser}
                   isLoggedIn={isLoggedIn}
                 />

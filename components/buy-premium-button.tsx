@@ -8,12 +8,17 @@ const productId = process.env.NEXT_PUBLIC_PRODUCT_ID!;
 const redirectUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export function BuyPremiumButton({
+  isAdmin,
   isPremiumUser,
   isLoggedIn,
-}: Readonly<{ isPremiumUser: boolean; isLoggedIn: boolean }>) {
+}: Readonly<{
+  isPremiumUser: boolean;
+  isLoggedIn: boolean;
+  isAdmin: boolean;
+}>) {
   const router = useRouter();
 
-  if (isPremiumUser) {
+  if (isAdmin || isPremiumUser) {
     return (
       <Link href="/docs/components">
         <Button className="w-full h-12 font-medium">Browse Components</Button>
