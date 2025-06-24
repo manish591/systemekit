@@ -37,6 +37,7 @@ export default async function ComponentDetails({
       slug: true,
       previewIframe: true,
       usageGuide: true,
+
       htmlCode: isProUser || isAdmin,
       cssCode: isProUser || isAdmin,
       jsCode: isProUser || isAdmin,

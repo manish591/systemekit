@@ -30,9 +30,7 @@ export async function Navbar() {
   const session = await auth();
   const isLoggedIn = !!session?.user;
   const isAdmin = isLoggedIn ? await isUserAdmin() : false;
-  const allComponentsSlugs = isLoggedIn
-    ? await getComponentDocumentationSlugs()
-    : [];
+  const allComponentsSlugs = await getComponentDocumentationSlugs();
   const commandPalleteLinks = [
     ...BASE_COMMAND_PALLETE_LINKS,
     ...allComponentsSlugs,

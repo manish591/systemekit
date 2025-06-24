@@ -22,3 +22,11 @@ export async function isPremiumAccount() {
 
   return user.plan === Plan.PAID;
 }
+
+// export async function getComponentsData(slug: string) {
+//   const componentData = await prisma.component.findUnique({
+//     where: {
+//       slug,
+//     }
+//   });
+// }
